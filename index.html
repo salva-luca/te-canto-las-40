@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Te canto las 40</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+/* El flyer final hecho pagina: pizarra que baja a naranja y a noche, motivo dorado arriba y abajo,
+   palo seco muy gruesa y apretada, y el script del Karaoke como unico gesto. Un solo tema, a proposito. */
+:root {
+  color-scheme: dark;
+  --oro: #c6a84f;
+  --oro-claro: #ecd27c;
+  --noche: #170e09;
+  --blanco: #fff;
+  --sans: "Outfit", "Helvetica Neue", Arial, sans-serif;
+  --script: "Pacifico", "Brush Script MT", cursive;
+  --g: clamp(16px, 2vw, 28px);
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; background: var(--noche); }
+body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; color: var(--blanco); font: 400 1rem/1.42 var(--sans);
+  background: linear-gradient(180deg, #7f9295 0, #5f6e72 280px, #4c4e4d min(760px, 40%), #5a3a2c 58%, #642810 78%, var(--noche) 100%); }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--blanco); outline-offset: 3px; }
+main { flex: 1 0 auto; }
+.wrap { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); }
+.st { display: inline-block; width: .82em; height: .82em; fill: currentColor; vertical-align: -.06em; }
+
+.hero { position: relative; overflow: hidden; padding: clamp(26px, 3.2vw, 44px) 0 clamp(24px, 2.8vw, 38px); }
+.hero::before { content: ""; position: absolute; inset: 0; opacity: .6;
+  background: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%22-102 -102 204 204%22%3E%3Cdefs%3E%3Cmask id=%22c%22 maskUnits=%22userSpaceOnUse%22 x=%22-102%22 y=%22-102%22 width=%22204%22 height=%22204%22%3E%3Crect x=%22-102%22 y=%22-102%22 width=%22204%22 height=%22204%22 fill=%22%23fff%22/%3E%3Cg fill=%22%23000%22%3E%3Crect x=%22-4.2%22 y=%22-102%22 width=%228.4%22 height=%22204%22/%3E%3Crect x=%22-102%22 y=%22-4.2%22 width=%22204%22 height=%228.4%22/%3E%3C/g%3E%3C/mask%3E%3Cmask id=%22l%22 maskUnits=%22userSpaceOnUse%22 x=%22-102%22 y=%22-102%22 width=%22204%22 height=%22204%22%3E%3Ccircle cx=%22-72%22 cy=%22-72%22 r=%2264%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22-72%22 cy=%2272%22 r=%2264%22 fill=%22%23fff%22/%3E%3Ccircle cx=%2272%22 cy=%22-72%22 r=%2264%22 fill=%22%23fff%22/%3E%3Ccircle cx=%2272%22 cy=%2272%22 r=%2264%22 fill=%22%23fff%22/%3E%3Cg fill=%22%23000%22%3E%3Crect x=%22-4.2%22 y=%22-102%22 width=%228.4%22 height=%22204%22/%3E%3Crect x=%22-102%22 y=%22-4.2%22 width=%22204%22 height=%228.4%22/%3E%3C/g%3E%3C/mask%3E%3C/defs%3E%3Cg fill=%22none%22 stroke=%22%23c6a84f%22 stroke-width=%224.3%22%3E%3Cg mask=%22url%28%23c%29%22%3E%3Ccircle r=%2296%22/%3E%3Ccircle r=%2287%22/%3E%3Ccircle r=%2278%22/%3E%3Ccircle r=%2269%22/%3E%3Ccircle r=%2260%22/%3E%3C/g%3E%3Cg mask=%22url%28%23l%29%22%3E%3Ccircle r=%2251%22/%3E%3Ccircle r=%2242%22/%3E%3C/g%3E%3C/g%3E%3Cpath fill=%22%23c6a84f%22 d=%22M0-43A43 43 0 0 0 43 0 43 43 0 0 0 0 43 43 43 0 0 0-43 0 43 43 0 0 0 0-43Z%22/%3E%3C/svg%3E") right top / clamp(150px, 15.5vw, 218px) repeat;
+  -webkit-mask-image: linear-gradient(90deg, transparent 52%, #000 88%); mask-image: linear-gradient(90deg, transparent 52%, #000 88%); }
+.hero .wrap { position: relative; }
+.hero h1 { margin: 0; font-weight: 800; font-size: clamp(3rem, 8.2vw, 6.9rem); line-height: 1; letter-spacing: -.04em; }
+.dress { margin: clamp(12px, 1.4vw, 20px) 0 0; font-weight: 600; font-size: clamp(1.15rem, 1.9vw, 1.5rem); line-height: 1.2; }
+.bajada { max-width: 66ch; text-wrap: balance; margin: 4px 0 0; font-size: clamp(1rem, 1.25vw, 1.08rem); }
+
+.filtros { position: sticky; top: 0; z-index: 2; background: rgba(52, 54, 54, .9); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.filtros .wrap { display: flex; align-items: center; gap: 8px clamp(14px, 1.6vw, 22px); padding-top: 15px; padding-bottom: 15px; }
+.f-tit { flex: none; margin: 0; font-weight: 800; font-size: 1rem; letter-spacing: -.01em; }
+.opciones { display: flex; flex-wrap: wrap; align-items: center; gap: 8px clamp(12px, 1.4vw, 20px); }
+.grupo { display: flex; flex-wrap: wrap; gap: 6px; }
+.f { padding: 6px 12px 5px; border: 1px solid rgba(255, 255, 255, .45); border-radius: 99px; font-weight: 600; font-size: .9rem; white-space: nowrap; }
+.f .st { color: var(--oro-claro); margin-right: 1px; }
+.f .st:last-of-type { margin-right: 6px; }
+.f:hover { border-color: var(--oro-claro); color: var(--oro-claro); }
+.f.on, .f.on:hover { background: var(--oro-claro); border-color: var(--oro-claro); color: var(--noche); }
+.f.on .st { color: var(--noche); }
+.vacio { padding-top: 40px; margin-bottom: 0; }
+.vacio[hidden] { display: none; }
+
+.car { padding-top: clamp(30px, 4vw, 54px); }
+.car[hidden] { display: none; }
+.car-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2px 22px; margin-bottom: clamp(12px, 1.6vw, 20px); }
+.car-top h2 { margin: 0; font: 400 clamp(2.1rem, 3.8vw, 3.1rem)/1.3 var(--script); -webkit-text-stroke: .01em var(--blanco); transform: rotate(-2.5deg); transform-origin: left center; }
+.ctl { display: flex; align-items: center; gap: clamp(12px, 1.6vw, 20px); font-weight: 600; font-size: .92rem; }
+.count { font-variant-numeric: tabular-nums; }
+.pause { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; min-width: 3.6em; text-align: left; }
+.arrow { display: inline-flex; padding: 8px 2px; }
+.arrow svg { display: block; width: 34px; height: 14px; fill: none; stroke: var(--blanco); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.arrow:hover svg { stroke: var(--oro-claro); }
+
+.track { container-type: inline-size; display: flex; gap: var(--g); position: relative;
+  overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 4px; }
+.track::-webkit-scrollbar { display: none; }
+@media (hover: hover) and (pointer: fine) { .track { cursor: grab; } }
+.track.drag { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.look { flex: 0 0 calc((100cqw - 3 * var(--g)) / 4); min-width: 0; scroll-snap-align: start; }
+.look[hidden] { display: none; }
+.look img { display: block; width: 100%; height: calc((100cqw - 3 * var(--g)) / 4 * 1.25); object-fit: cover; }
+.look h3 { margin: 12px 0 4px; font-weight: 800; font-size: 1.28rem; line-height: 1.12; letter-spacing: -.02em; }
+.look p { margin: 0 0 6px; font-size: .95rem; line-height: 1.36; }
+.look .song { color: var(--oro-claro); }
+.look .song b { font-weight: 600; }
+.look .lvl { margin: 8px 0 0; font-size: .86rem; }
+.look .lvl .st { color: var(--oro-claro); margin-right: 1px; }
+.look .lvl .st:last-of-type { margin-right: 6px; }
+
+.pie { position: relative; margin-top: clamp(52px, 7vw, 90px); font-size: .86rem; overflow: hidden; }
+.pie .wrap { position: relative; z-index: 1; padding-bottom: clamp(70px, 9vw, 120px); }
+.pie::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: clamp(110px, 13vw, 170px); opacity: .5;
+  background: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%22-102 -102 204 204%22%3E%3Cdefs%3E%3Cmask id=%22c%22 maskUnits=%22userSpaceOnUse%22 x=%22-102%22 y=%22-102%22 width=%22204%22 height=%22204%22%3E%3Crect x=%22-102%22 y=%22-102%22 width=%22204%22 height=%22204%22 fill=%22%23fff%22/%3E%3Cg fill=%22%23000%22%3E%3Crect x=%22-4.2%22 y=%22-102%22 width=%228.4%22 height=%22204%22/%3E%3Crect x=%22-102%22 y=%22-4.2%22 width=%22204%22 height=%228.4%22/%3E%3C/g%3E%3C/mask%3E%3Cmask id=%22l%22 maskUnits=%22userSpaceOnUse%22 x=%22-102%22 y=%22-102%22 width=%22204%22 height=%22204%22%3E%3Ccircle cx=%22-72%22 cy=%22-72%22 r=%2264%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22-72%22 cy=%2272%22 r=%2264%22 fill=%22%23fff%22/%3E%3Ccircle cx=%2272%22 cy=%22-72%22 r=%2264%22 fill=%22%23fff%22/%3E%3Ccircle cx=%2272%22 cy=%2272%22 r=%2264%22 fill=%22%23fff%22/%3E%3Cg fill=%22%23000%22%3E%3Crect x=%22-4.2%22 y=%22-102%22 width=%228.4%22 height=%22204%22/%3E%3Crect x=%22-102%22 y=%22-4.2%22 width=%22204%22 height=%228.4%22/%3E%3C/g%3E%3C/mask%3E%3C/defs%3E%3Cg fill=%22none%22 stroke=%22%23c6a84f%22 stroke-width=%224.3%22%3E%3Cg mask=%22url%28%23c%29%22%3E%3Ccircle r=%2296%22/%3E%3Ccircle r=%2287%22/%3E%3Ccircle r=%2278%22/%3E%3Ccircle r=%2269%22/%3E%3Ccircle r=%2260%22/%3E%3C/g%3E%3Cg mask=%22url%28%23l%29%22%3E%3Ccircle r=%2251%22/%3E%3Ccircle r=%2242%22/%3E%3C/g%3E%3C/g%3E%3Cpath fill=%22%23c6a84f%22 d=%22M0-43A43 43 0 0 0 43 0 43 43 0 0 0 0 43 43 43 0 0 0-43 0 43 43 0 0 0 0-43Z%22/%3E%3C/svg%3E") center top / clamp(150px, 15.5vw, 218px) repeat-x;
+  -webkit-mask-image: linear-gradient(0deg, #000, transparent); mask-image: linear-gradient(0deg, #000, transparent); }
+.pie p { max-width: 72ch; margin: 0; }
+.pie summary { cursor: pointer; margin-top: 14px; font-weight: 600; }
+.pie ol { list-style: none; margin: 12px 0 0; padding: 0; columns: 4 150px; column-gap: 22px; }
+.pie li { break-inside: avoid; margin-bottom: 3px; }
+
+@media (max-width: 980px) {
+  .look { flex-basis: calc((100cqw - 2 * var(--g)) / 3); }
+  .look img { height: calc((100cqw - 2 * var(--g)) / 3 * 1.25); }
+}
+@media (max-width: 640px) {
+  .hero h1 { font-size: 13.4vw; }
+  .hero::before { opacity: .3; -webkit-mask-image: none; mask-image: none; }
+  .filtros .wrap { flex-wrap: wrap; padding-top: 11px; padding-bottom: 11px; padding-right: 0; gap: 7px; }
+  .f-tit { font-size: .95rem; }
+  .opciones { flex-wrap: nowrap; width: 100%; overflow-x: auto; scrollbar-width: none; padding-right: 20px; }
+  .opciones::-webkit-scrollbar { display: none; }
+  .grupo { flex-wrap: nowrap; }
+  .f { flex: none; }
+  .look { flex-basis: 74cqw; }
+  .look img { height: calc(74cqw * 1.25); }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="estrella" viewBox="-43 -43 86 86"><path d="M0-43A43 43 0 0 0 43 0 43 43 0 0 0 0 43 43 43 0 0 0-43 0 43 43 0 0 0 0-43Z"/></symbol></svg>
+<header class="hero">
+  <div class="wrap">
+    <h1>Te canto las 40.</h1>
+    <p class="dress">Dresscode: cantante.</p>
+    <p class="bajada">¿No sabés de quién ir? Acá hay 75 ideas para armar el look y subirte a cantar su tema.</p>
+  </div>
+</header>
+<nav class="filtros" aria-label="Filtrar looks"><div class="wrap"><p class="f-tit">Filtrá los looks:</p><div class="opciones"><button type="button" class="f on" data-grupo="todos" aria-pressed="true">Todos</button><span class="grupo"><button type="button" class="f" data-grupo="region" data-v="int" aria-pressed="false">Internacionales</button><button type="button" class="f" data-grupo="region" data-v="arg" aria-pressed="false">Nacionales</button></span><span class="grupo"><button type="button" class="f" data-grupo="nivel" data-v="1" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</button><button type="button" class="f" data-grupo="nivel" data-v="2" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</button><button type="button" class="f" data-grupo="nivel" data-v="3" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Producción total</button></span></div></div></nav>
+<main>
+<p class="vacio wrap" hidden>No hay looks con esos filtros. Probá sacando alguno.</p>
+<section class="car wrap" data-region="int" aria-label="Internacionales">
+  <header class="car-top">
+    <h2>Internacionales</h2>
+    <div class="ctl">
+      <span class="count" aria-live="off"></span>
+      <button type="button" class="pause">Pausar</button>
+      <button type="button" class="arrow prev" aria-label="Anterior en Internacionales"><svg viewBox="0 0 34 14" aria-hidden="true"><path d="M33 7H1M7 1 1 7l6 6"/></svg></button>
+      <button type="button" class="arrow next" aria-label="Siguiente en Internacionales"><svg viewBox="0 0 34 14" aria-hidden="true"><path d="M1 7h32M27 1l6 6-6 6"/></svg></button>
+    </div>
+  </header>
+  <div class="track" tabindex="0" aria-label="Looks Internacionales. Deslizá para ver más.">
+<article class="look" data-level="3">
+  <img src="img/01-freddie.jpg" alt="Freddie Mercury: Wembley 86: campera amarilla con hebillas, pantalón blanco y bigote." loading="lazy" width="576" height="720">
+  <h3>Freddie Mercury</h3>
+  <p>Wembley 86: campera amarilla con hebillas, pantalón blanco y bigote.</p>
+  <p class="how">Campera amarilla, pantalón blanco con franja roja y bigote pintado.</p>
+  <p class="song">Cantá: <b>We Will Rock You</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Producción total</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/02-mj.jpg" alt="Michael Jackson: La campera roja de Thriller." loading="lazy" width="576" height="720">
+  <h3>Michael Jackson</h3>
+  <p>La campera roja de Thriller.</p>
+  <p class="how">Campera roja con franjas negras, pantalón rojo y rulos.</p>
+  <p class="song">Cantá: <b>Thriller</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/03-madonna.jpg" alt="Madonna: Like a Virgin: vestido de novia, velo y crucifijo." loading="lazy" width="576" height="720">
+  <h3>Madonna</h3>
+  <p>Like a Virgin: vestido de novia, velo y crucifijo.</p>
+  <p class="how">Vestido blanco con tul, velo, guantes de encaje y crucifijo.</p>
+  <p class="song">Cantá: <b>Like a Virgin</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/04-spice.jpg" alt="Spice Girls: El vestido de la bandera inglesa y una Spice por persona. Para ir en grupo." loading="lazy" width="900" height="600" style="object-position: 80% 50%">
+  <h3>Spice Girls</h3>
+  <p>El vestido de la bandera inglesa y una Spice por persona. Para ir en grupo.</p>
+  <p class="how">Elijan una Spice cada una: bandera, plataformas, buzo deportivo, colitas o todo negro.</p>
+  <p class="song">Cantá: <b>Wannabe</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/72-guerra.jpg" alt="Juan Luis Guerra: Boina, barba, chaleco oscuro, camisa blanca y pañuelo al cuello." loading="lazy" width="576" height="720">
+  <h3>Juan Luis Guerra</h3>
+  <p>Boina, barba, chaleco oscuro, camisa blanca y pañuelo al cuello.</p>
+  <p class="how">Boina, chaleco, camisa blanca, pañuelo y barba pintada si no tenés.</p>
+  <p class="song">Cantá: <b>La Bilirrubina</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/05-prince.jpg" alt="Prince: Purple Rain: saco violeta brillante, camisa con volados y rulos." loading="lazy" width="576" height="720">
+  <h3>Prince</h3>
+  <p>Purple Rain: saco violeta brillante, camisa con volados y rulos.</p>
+  <p class="how">Saco violeta, camisa blanca con volados y delineador.</p>
+  <p class="song">Cantá: <b>Purple Rain</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/06-bowie.jpg" alt="David Bowie: Aladdin Sane: el rayo rojo y azul sobre la cara." loading="lazy" width="576" height="720">
+  <h3>David Bowie</h3>
+  <p>Aladdin Sane: el rayo rojo y azul sobre la cara.</p>
+  <p class="how">Rayo pintado en la cara y pelo naranja. Con eso alcanza.</p>
+  <p class="song">Cantá: <b>Starman</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/73-selena.jpg" alt="Selena: El mono violeta brillante de 1995: ombligo al aire y pantalón oxford." loading="lazy" width="576" height="720">
+  <h3>Selena</h3>
+  <p>El mono violeta brillante de 1995: ombligo al aire y pantalón oxford.</p>
+  <p class="how">Top y pantalón oxford violetas con brillos, pelo negro y labios rojos.</p>
+  <p class="song">Cantá: <b>Como la Flor</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="3">
+  <img src="img/07-elvis.jpg" alt="Elvis Presley: Enterito blanco con pedrería, cuello alto y jopo." loading="lazy" width="576" height="720">
+  <h3>Elvis Presley</h3>
+  <p>Enterito blanco con pedrería, cuello alto y jopo.</p>
+  <p class="how">Mono blanco, cinturón grande, collar de flores y mucho gel.</p>
+  <p class="song">Cantá: <b>Suspicious Minds</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Producción total</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/08-kurt.jpg" alt="Kurt Cobain: Camisa escocesa abierta sobre remera, jean gastado. Grunge puro." loading="lazy" width="576" height="720">
+  <h3>Kurt Cobain</h3>
+  <p>Camisa escocesa abierta sobre remera, jean gastado. Grunge puro.</p>
+  <p class="how">Camisa escocesa, remera vieja, jean roto y pelo rubio despeinado.</p>
+  <p class="song">Cantá: <b>Smells Like Teen Spirit</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="3">
+  <img src="img/09-gaga.jpg" alt="Lady Gaga: El vestido de carne de 2010." loading="lazy" width="576" height="720">
+  <h3>Lady Gaga</h3>
+  <p>El vestido de carne de 2010.</p>
+  <p class="how">Vestido hecho con papel o tela que imite carne, y peluca platinada.</p>
+  <p class="song">Cantá: <b>Poker Face</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Producción total</p>
+</article>
+<article class="look" data-level="3">
+  <img src="img/10-cher.jpg" alt="Cher: Bob Mackie: vestido blanco y negro, tocado de plumas gigante." loading="lazy" width="576" height="720">
+  <h3>Cher</h3>
+  <p>Bob Mackie: vestido blanco y negro, tocado de plumas gigante.</p>
+  <p class="how">Vestido largo ajustado, plumas en la cabeza y pelo negro lacio.</p>
+  <p class="song">Cantá: <b>Believe</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Producción total</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/74-luismi.jpg" alt="Luis Miguel: Traje oscuro impecable, corbata, jopo y bronceado." loading="lazy" width="576" height="720">
+  <h3>Luis Miguel</h3>
+  <p>Traje oscuro impecable, corbata, jopo y bronceado.</p>
+  <p class="how">Traje oscuro, corbata, gel en el pelo y autobronceante sin culpa.</p>
+  <p class="song">Cantá: <b>La Incondicional</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/11-tina.jpg" alt="Tina Turner: Minivestido de flecos dorados, melena despeinada y tacos." loading="lazy" width="576" height="720">
+  <h3>Tina Turner</h3>
+  <p>Minivestido de flecos dorados, melena despeinada y tacos.</p>
+  <p class="how">Vestido con flecos, peluca bien batida y tacos para bailar toda la noche.</p>
+  <p class="song">Cantá: <b>Proud Mary</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/12-elton.jpg" alt="Elton John: Plumas, lentejuelas, un tocado enorme y anteojos gigantes." loading="lazy" width="576" height="720">
+  <h3>Elton John</h3>
+  <p>Plumas, lentejuelas, un tocado enorme y anteojos gigantes.</p>
+  <p class="how">Anteojos enormes, boa de plumas y todo el brillo que encuentres.</p>
+  <p class="song">Cantá: <b>I&#x27;m Still Standing</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/13-britney.jpg" alt="Britney Spears: Baby One More Time: uniforme de colegio con camisa atada y colitas." loading="lazy" width="576" height="720">
+  <h3>Britney Spears</h3>
+  <p>Baby One More Time: uniforme de colegio con camisa atada y colitas.</p>
+  <p class="how">Camisa blanca atada, pollera tableada, medias largas y dos colitas.</p>
+  <p class="song">Cantá: <b>...Baby One More Time</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/75-karolg.jpg" alt="Karol G: Pelo azul larguísimo y conjunto de tiras de jean." loading="lazy" width="576" height="720">
+  <h3>Karol G</h3>
+  <p>Pelo azul larguísimo y conjunto de tiras de jean.</p>
+  <p class="how">Peluca azul larga, top y short de jean, y todas las tiras que se te ocurran.</p>
+  <p class="song">Cantá: <b>Tusa</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/14-beyonce.jpg" alt="Beyoncé: Single Ladies: body negro de manga larga y tacos." loading="lazy" width="576" height="720">
+  <h3>Beyoncé</h3>
+  <p>Single Ladies: body negro de manga larga y tacos.</p>
+  <p class="how">Body negro, tacos y un guante metálico. Mejor con dos amigas.</p>
+  <p class="song">Cantá: <b>Single Ladies</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="3">
+  <img src="img/15-rihanna.jpg" alt="Rihanna: La capa amarilla gigante de la Met Gala 2015." loading="lazy" width="576" height="720">
+  <h3>Rihanna</h3>
+  <p>La capa amarilla gigante de la Met Gala 2015.</p>
+  <p class="how">Tapado o tela amarilla enorme que arrastre. Cuanto más metros, mejor.</p>
+  <p class="song">Cantá: <b>Umbrella</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Producción total</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/16-amy.jpg" alt="Amy Winehouse: Batido negro altísimo, delineado marcado y vestido de los 50." loading="lazy" width="576" height="720">
+  <h3>Amy Winehouse</h3>
+  <p>Batido negro altísimo, delineado marcado y vestido de los 50.</p>
+  <p class="how">Rodete alto con mucho volumen, delineador grueso y vestido con cinturón.</p>
+  <p class="song">Cantá: <b>Back to Black</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/17-marley.jpg" alt="Bob Marley: Rastas, jean y musculosa rasta." loading="lazy" width="576" height="720">
+  <h3>Bob Marley</h3>
+  <p>Rastas, jean y musculosa rasta.</p>
+  <p class="how">Musculosa roja, amarilla y verde, jean y gorro con rastas.</p>
+  <p class="song">Cantá: <b>No Woman, No Cry</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/18-kiss.jpg" alt="KISS: Cara pintada, cuero negro y plataformas. Para ir en banda." loading="lazy" width="576" height="720">
+  <h3>KISS</h3>
+  <p>Cara pintada, cuero negro y plataformas. Para ir en banda.</p>
+  <p class="how">Maquillaje blanco y negro, ropa negra y lo más alto que tengas en los pies.</p>
+  <p class="song">Cantá: <b>I Was Made for Lovin&#x27; You</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/19-slash.jpg" alt="Slash: Galera, rulos negros y chaleco de jean." loading="lazy" width="576" height="720">
+  <h3>Slash</h3>
+  <p>Galera, rulos negros y chaleco de jean.</p>
+  <p class="how">Galera, peluca de rulos, chaleco, remera de banda y lentes oscuros.</p>
+  <p class="song">Cantá: <b>Sweet Child O&#x27; Mine</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/20-axl.jpg" alt="Axl Rose: Bandana, musculosa y short de la bandera." loading="lazy" width="576" height="720">
+  <h3>Axl Rose</h3>
+  <p>Bandana, musculosa y short de la bandera.</p>
+  <p class="how">Bandana, pelo largo, short llamativo y botas.</p>
+  <p class="song">Cantá: <b>Welcome to the Jungle</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/21-ozzy.jpg" alt="Ozzy Osbourne: Anteojos redondos de color, pelo largo y mucho negro." loading="lazy" width="576" height="720">
+  <h3>Ozzy Osbourne</h3>
+  <p>Anteojos redondos de color, pelo largo y mucho negro.</p>
+  <p class="how">Lentes redondos, peluca oscura lisa, ropa negra y cruz grande.</p>
+  <p class="song">Cantá: <b>Crazy Train</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/22-lennon.jpg" alt="John Lennon y Yoko Ono: Todo de blanco y el sombrero de ala ancha. Para ir en pareja." loading="lazy" width="576" height="720">
+  <h3>John Lennon y Yoko Ono</h3>
+  <p>Todo de blanco y el sombrero de ala ancha. Para ir en pareja.</p>
+  <p class="how">Traje blanco y anteojos redondos; para Yoko, sombrero blanco y lentes oscuros.</p>
+  <p class="song">Cantá: <b>Imagine</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/23-stevie.jpg" alt="Stevie Wonder: Trencitas con cuentas, anteojos oscuros y sonrisa enorme." loading="lazy" width="576" height="720">
+  <h3>Stevie Wonder</h3>
+  <p>Trencitas con cuentas, anteojos oscuros y sonrisa enorme.</p>
+  <p class="how">Peluca con trencitas y cuentas, lentes de aviador y camisa con bordados.</p>
+  <p class="song">Cantá: <b>Superstition</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/24-whitney.jpg" alt="Whitney Houston: I Wanna Dance with Somebody: rulos, pañuelo con moño y brillo." loading="lazy" width="576" height="720">
+  <h3>Whitney Houston</h3>
+  <p>I Wanna Dance with Somebody: rulos, pañuelo con moño y brillo.</p>
+  <p class="how">Peluca de rulos, pañuelo atado arriba y musculosa brillante.</p>
+  <p class="song">Cantá: <b>I Wanna Dance with Somebody</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/25-dolly.jpg" alt="Dolly Parton: Pelo rubio gigante y conjunto rosa con brillos." loading="lazy" width="576" height="720">
+  <h3>Dolly Parton</h3>
+  <p>Pelo rubio gigante y conjunto rosa con brillos.</p>
+  <p class="how">Peluca rubia con todo el volumen posible y ropa country brillante.</p>
+  <p class="song">Cantá: <b>Jolene</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/26-cyndi.jpg" alt="Cyndi Lauper: Pelo naranja, vestido estampado, cinturones y pulseras." loading="lazy" width="576" height="720">
+  <h3>Cyndi Lauper</h3>
+  <p>Pelo naranja, vestido estampado, cinturones y pulseras.</p>
+  <p class="how">Pelo de color, muchos cinturones, pulseras y maquillaje de colores.</p>
+  <p class="song">Cantá: <b>Girls Just Want to Have Fun</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/27-harry.jpg" alt="Harry Styles: Saco escocés amarillo y boa de plumas violeta." loading="lazy" width="576" height="720">
+  <h3>Harry Styles</h3>
+  <p>Saco escocés amarillo y boa de plumas violeta.</p>
+  <p class="how">Saco a cuadros, boa de plumas de color y pantalón oxford.</p>
+  <p class="song">Cantá: <b>As It Was</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/28-taylor.jpg" alt="Taylor Swift: Eras Tour: body de lentejuelas y flequillo." loading="lazy" width="576" height="720">
+  <h3>Taylor Swift</h3>
+  <p>Eras Tour: body de lentejuelas y flequillo.</p>
+  <p class="how">Body brillante, botas, flequillo y labios rojos.</p>
+  <p class="song">Cantá: <b>Shake It Off</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/29-shakira.jpg" alt="Shakira: Rulos rubios enormes y brillos dorados." loading="lazy" width="576" height="720">
+  <h3>Shakira</h3>
+  <p>Rulos rubios enormes y brillos dorados.</p>
+  <p class="how">Peluca de rulos, top dorado y pañuelo con flecos en la cadera.</p>
+  <p class="song">Cantá: <b>Hips Don&#x27;t Lie</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/30-badbunny.jpg" alt="Bad Bunny: Traje fucsia, anteojos de sol y zapatillas blancas." loading="lazy" width="576" height="720">
+  <h3>Bad Bunny</h3>
+  <p>Traje fucsia, anteojos de sol y zapatillas blancas.</p>
+  <p class="how">Traje de color fuerte, anteojos de sol y zapatillas blancas.</p>
+  <p class="song">Cantá: <b>Tití Me Preguntó</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="3">
+  <img src="img/31-celia.jpg" alt="Celia Cruz: Peluca gigante de colores y vestido de encaje." loading="lazy" width="576" height="720">
+  <h3>Celia Cruz</h3>
+  <p>Peluca gigante de colores y vestido de encaje.</p>
+  <p class="how">Peluca enorme, vestido brillante y gritar ¡Azúcar! cada tanto.</p>
+  <p class="song">Cantá: <b>La Vida Es un Carnaval</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Producción total</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/32-jagger.jpg" alt="Mick Jagger: Años 70: enterito de terciopelo con faja roja y pecho abierto." loading="lazy" width="576" height="720">
+  <h3>Mick Jagger</h3>
+  <p>Años 70: enterito de terciopelo con faja roja y pecho abierto.</p>
+  <p class="how">Enterito o camisa abierta, faja roja y mucho movimiento de cadera.</p>
+  <p class="song">Cantá: <b>Satisfaction</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/33-angus.jpg" alt="Angus Young: El uniforme de colegio con bermudas." loading="lazy" width="576" height="720">
+  <h3>Angus Young</h3>
+  <p>El uniforme de colegio con bermudas.</p>
+  <p class="how">Saco de colegio, corbata, bermudas, medias largas y guitarra imaginaria.</p>
+  <p class="song">Cantá: <b>Back in Black</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/34-abba.jpg" alt="ABBA: Satén brillante, tachas y pelo con volumen. Para ir de a cuatro." loading="lazy" width="576" height="720">
+  <h3>ABBA</h3>
+  <p>Satén brillante, tachas y pelo con volumen. Para ir de a cuatro.</p>
+  <p class="how">Enteritos o camisas de satén, botas blancas y mucho brillo.</p>
+  <p class="song">Cantá: <b>Dancing Queen</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/35-tyler.jpg" alt="Steven Tyler: Conjunto a rayas, melena y pañuelos colgando del micrófono." loading="lazy" width="576" height="720">
+  <h3>Steven Tyler</h3>
+  <p>Conjunto a rayas, melena y pañuelos colgando del micrófono.</p>
+  <p class="how">Ropa a rayas, pelo largo y todos los pañuelos que encuentres.</p>
+  <p class="song">Cantá: <b>Dream On</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/36-janis.jpg" alt="Janis Joplin: Plumas en el pelo, collares y anteojos redondos." loading="lazy" width="576" height="720">
+  <h3>Janis Joplin</h3>
+  <p>Plumas en el pelo, collares y anteojos redondos.</p>
+  <p class="how">Plumas, muchos collares, chaleco hippie y anteojos de marco fino.</p>
+  <p class="song">Cantá: <b>Piece of My Heart</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/37-billie.jpg" alt="Billie Eilish: Ropa XXL verde flúor y raíces verdes." loading="lazy" width="576" height="720">
+  <h3>Billie Eilish</h3>
+  <p>Ropa XXL verde flúor y raíces verdes.</p>
+  <p class="how">Buzo y pantalón gigantes de color flúor, y mechas verdes.</p>
+  <p class="song">Cantá: <b>Bad Guy</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/38-sinatra.jpg" alt="Frank Sinatra: Traje, corbata fina y sombrero." loading="lazy" width="576" height="720">
+  <h3>Frank Sinatra</h3>
+  <p>Traje, corbata fina y sombrero.</p>
+  <p class="how">Traje, sombrero y un vaso en la mano.</p>
+  <p class="song">Cantá: <b>My Way</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/39-village.jpg" alt="Village People: Vaquero, obrero, policía, marinero. Para ir en grupo." loading="lazy" width="900" height="600" style="object-position: 48% 50%">
+  <h3>Village People</h3>
+  <p>Vaquero, obrero, policía, marinero. Para ir en grupo.</p>
+  <p class="how">Cada uno elige un personaje y arman la coreo.</p>
+  <p class="song">Cantá: <b>Y.M.C.A.</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/40-annie.jpg" alt="Annie Lennox: Sweet Dreams: traje con corbata y pelo corto naranja." loading="lazy" width="576" height="720">
+  <h3>Annie Lennox</h3>
+  <p>Sweet Dreams: traje con corbata y pelo corto naranja.</p>
+  <p class="how">Traje con corbata, gel y pelo naranja corto.</p>
+  <p class="song">Cantá: <b>Sweet Dreams</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/41-boygeorge.jpg" alt="Boy George: Sombrero, trenzas con cintas y maquillaje marcado." loading="lazy" width="576" height="720">
+  <h3>Boy George</h3>
+  <p>Sombrero, trenzas con cintas y maquillaje marcado.</p>
+  <p class="how">Sombrero, trenzas con cintas de colores y ropa holgada estampada.</p>
+  <p class="song">Cantá: <b>Karma Chameleon</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="3">
+  <img src="img/42-bjork.jpg" alt="Björk: El vestido de cisne de los Oscar 2001." loading="lazy" width="576" height="720">
+  <h3>Björk</h3>
+  <p>El vestido de cisne de los Oscar 2001.</p>
+  <p class="how">Vestido blanco de tul con un cisne de peluche al cuello.</p>
+  <p class="song">Cantá: <b>It&#x27;s Oh So Quiet</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Producción total</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/43-robert.jpg" alt="Robert Smith: Pelo negro batido y labial corrido." loading="lazy" width="576" height="720">
+  <h3>Robert Smith</h3>
+  <p>Pelo negro batido y labial corrido.</p>
+  <p class="how">Peluca negra despeinada, labial rojo corrido, delineador y ropa negra.</p>
+  <p class="song">Cantá: <b>Friday I&#x27;m in Love</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/44-olivia.jpg" alt="Olivia Newton-John: Physical: vincha, musculosa y pelo corto." loading="lazy" width="576" height="720">
+  <h3>Olivia Newton-John</h3>
+  <p>Physical: vincha, musculosa y pelo corto.</p>
+  <p class="how">Vincha, remera atada a la cintura y calzas de colores.</p>
+  <p class="song">Cantá: <b>Physical</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/45-sia.jpg" alt="Sia: La peluca que tapa la cara y el moño gigante." loading="lazy" width="576" height="720">
+  <h3>Sia</h3>
+  <p>La peluca que tapa la cara y el moño gigante.</p>
+  <p class="how">Peluca bicolor sobre la cara y moño enorme.</p>
+  <p class="song">Cantá: <b>Chandelier</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/46-patti.jpg" alt="Patti Smith: Horses: camisa blanca, cinta negra de corbata y saco al hombro." loading="lazy" width="576" height="720">
+  <h3>Patti Smith</h3>
+  <p>Horses: camisa blanca, cinta negra de corbata y saco al hombro.</p>
+  <p class="how">Camisa blanca, corbata finita, saco colgado del hombro y pelo revuelto.</p>
+  <p class="song">Cantá: <b>Because the Night</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/47-gwen.jpg" alt="Gwen Stefani: No Doubt: top corto, pantalón estampado y rubio platinado." loading="lazy" width="576" height="720">
+  <h3>Gwen Stefani</h3>
+  <p>No Doubt: top corto, pantalón estampado y rubio platinado.</p>
+  <p class="how">Top corto, pantalón llamativo, labios rojos y rubio.</p>
+  <p class="song">Cantá: <b>Don&#x27;t Speak</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/48-ricky.jpg" alt="Ricky Martin: Livin&#x27; la Vida Loca: camisa negra y cadera suelta." loading="lazy" width="900" height="600">
+  <h3>Ricky Martin</h3>
+  <p>Livin&#x27; la Vida Loca: camisa negra y cadera suelta.</p>
+  <p class="how">Camisa negra abierta, pantalón oscuro y un buen meneo.</p>
+  <p class="song">Cantá: <b>Livin&#x27; la Vida Loca</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+  </div>
+</section>
+<section class="car wrap" data-region="arg" aria-label="Nacionales">
+  <header class="car-top">
+    <h2>Nacionales</h2>
+    <div class="ctl">
+      <span class="count" aria-live="off"></span>
+      <button type="button" class="pause">Pausar</button>
+      <button type="button" class="arrow prev" aria-label="Anterior en Nacionales"><svg viewBox="0 0 34 14" aria-hidden="true"><path d="M33 7H1M7 1 1 7l6 6"/></svg></button>
+      <button type="button" class="arrow next" aria-label="Siguiente en Nacionales"><svg viewBox="0 0 34 14" aria-hidden="true"><path d="M1 7h32M27 1l6 6-6 6"/></svg></button>
+    </div>
+  </header>
+  <div class="track" tabindex="0" aria-label="Looks Nacionales. Deslizá para ver más.">
+<article class="look" data-level="1">
+  <img src="img/49-charly.jpg" alt="Charly García: El bigote bicolor y anteojos de marco grueso." loading="lazy" width="576" height="720">
+  <h3>Charly García</h3>
+  <p>El bigote bicolor y anteojos de marco grueso.</p>
+  <p class="how">Bigote pintado mitad blanco, anteojos grandes y camisa a rayas.</p>
+  <p class="song">Cantá: <b>Demoliendo Hoteles</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/50-cerati.jpg" alt="Soda Stereo: Años 80: pelo batido, camisas estampadas y delineador. Para ir de a tres." loading="lazy" width="576" height="720">
+  <h3>Soda Stereo</h3>
+  <p>Años 80: pelo batido, camisas estampadas y delineador. Para ir de a tres.</p>
+  <p class="how">Camisa estampada, mucho spray en el pelo y delineador.</p>
+  <p class="song">Cantá: <b>De Música Ligera</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/51-spinetta.jpg" alt="Luis Alberto Spinetta: Melena con rulos y camisa abierta." loading="lazy" width="576" height="720">
+  <h3>Luis Alberto Spinetta</h3>
+  <p>Melena con rulos y camisa abierta.</p>
+  <p class="how">Peluca de rulos larga y camisa clara.</p>
+  <p class="song">Cantá: <b>Muchacha (Ojos de Papel)</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/52-fito.jpg" alt="Fito Páez: Rulos enormes y anteojos oscuros." loading="lazy" width="576" height="720">
+  <h3>Fito Páez</h3>
+  <p>Rulos enormes y anteojos oscuros.</p>
+  <p class="how">Peluca de rulos, lentes oscuros y camisa suelta.</p>
+  <p class="song">Cantá: <b>Mariposa Tecknicolor</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/53-calamaro.jpg" alt="Andrés Calamaro: Rulos revueltos, anteojos de sol y traje negro." loading="lazy" width="576" height="720">
+  <h3>Andrés Calamaro</h3>
+  <p>Rulos revueltos, anteojos de sol y traje negro.</p>
+  <p class="how">Peluca de rulos, lentes oscuros, saco y camisa negros.</p>
+  <p class="song">Cantá: <b>Flaca</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/54-indio.jpg" alt="Indio Solari: Pelado y anteojos redondos oscuros." loading="lazy" width="576" height="720">
+  <h3>Indio Solari</h3>
+  <p>Pelado y anteojos redondos oscuros.</p>
+  <p class="how">Pelada de látex o gorro color piel, lentes redondos y ropa negra.</p>
+  <p class="song">Cantá: <b>Ji Ji Ji</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/55-pappo.jpg" alt="Pappo: Melena, campera de cuero y moto." loading="lazy" width="576" height="720">
+  <h3>Pappo</h3>
+  <p>Melena, campera de cuero y moto.</p>
+  <p class="how">Campera de cuero, peluca larga y guitarra.</p>
+  <p class="song">Cantá: <b>El Viejo</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/56-moura.jpg" alt="Federico Moura: Virus: melena, camisa estampada y maquillaje." loading="lazy" width="576" height="720">
+  <h3>Federico Moura</h3>
+  <p>Virus: melena, camisa estampada y maquillaje.</p>
+  <p class="how">Camisa estampada brillante, pelo largo y maquillaje suave.</p>
+  <p class="song">Cantá: <b>Wadu Wadu</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/57-mercedes.jpg" alt="Mercedes Sosa: Poncho y pelo negro largo." loading="lazy" width="576" height="720">
+  <h3>Mercedes Sosa</h3>
+  <p>Poncho y pelo negro largo.</p>
+  <p class="how">Poncho, peluca lisa negra y, si conseguís, un bombo.</p>
+  <p class="song">Cantá: <b>Gracias a la Vida</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/58-sandro.jpg" alt="Sandro: Camisa roja abierta, cadena y pelo negro con volumen." loading="lazy" width="576" height="720">
+  <h3>Sandro</h3>
+  <p>Camisa roja abierta, cadena y pelo negro con volumen.</p>
+  <p class="how">Camisa abierta, cadena al pecho y patillas.</p>
+  <p class="song">Cantá: <b>Rosa, Rosa</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/59-gardel.jpg" alt="Carlos Gardel: Sombrero, traje y la sonrisa." loading="lazy" width="576" height="720">
+  <h3>Carlos Gardel</h3>
+  <p>Sombrero, traje y la sonrisa.</p>
+  <p class="how">Traje, sombrero, corbata y pelo engominado.</p>
+  <p class="song">Cantá: <b>Volver</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/60-gilda.jpg" alt="Gilda: Vestido azul y corona de flores." loading="lazy" width="576" height="720">
+  <h3>Gilda</h3>
+  <p>Vestido azul y corona de flores.</p>
+  <p class="how">Vestido azul vaporoso, corona de flores y pelo largo oscuro.</p>
+  <p class="song">Cantá: <b>No Me Arrepiento de Este Amor</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/61-rodrigo.jpg" alt="Rodrigo Bueno: Remera ajustada, cadena y pelo corto." loading="lazy" width="576" height="720">
+  <h3>Rodrigo Bueno</h3>
+  <p>Remera ajustada, cadena y pelo corto.</p>
+  <p class="how">Remera ajustada o musculosa, cadena y un tatuaje pintado en el brazo.</p>
+  <p class="song">Cantá: <b>Lo Mejor del Amor</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/62-lescano.jpg" alt="Pablo Lescano: Gorra, anteojos de sol y teclado colgado." loading="lazy" width="576" height="720">
+  <h3>Pablo Lescano</h3>
+  <p>Gorra, anteojos de sol y teclado colgado.</p>
+  <p class="how">Gorra, anteojos de sol, ropa deportiva y un teclado de juguete al hombro.</p>
+  <p class="song">Cantá: <b>Se Te Ve la Tanga</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/63-soledad.jpg" alt="Soledad Pastorutti: El poncho revoleando en el aire." loading="lazy" width="576" height="720">
+  <h3>Soledad Pastorutti</h3>
+  <p>El poncho revoleando en el aire.</p>
+  <p class="how">Poncho y ropa de campo. Revoleo obligatorio.</p>
+  <p class="song">Cantá: <b>Brindis</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/64-vicentico.jpg" alt="Vicentico: Traje oscuro y anteojos negros." loading="lazy" width="576" height="720">
+  <h3>Vicentico</h3>
+  <p>Traje oscuro y anteojos negros.</p>
+  <p class="how">Traje negro, camisa oscura y anteojos negros.</p>
+  <p class="song">Cantá: <b>Los Caminos de la Vida</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/65-miranda.jpg" alt="Miranda!: Trajes de lentejuelas doradas. Para ir en dúo." loading="lazy" width="576" height="720">
+  <h3>Miranda!</h3>
+  <p>Trajes de lentejuelas doradas. Para ir en dúo.</p>
+  <p class="how">Saco dorado brillante, medias de red y mucho pop.</p>
+  <p class="song">Cantá: <b>Don</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/66-lali.jpg" alt="Lali: Conjunto dorado con flecos y pelo rojo." loading="lazy" width="576" height="720">
+  <h3>Lali</h3>
+  <p>Conjunto dorado con flecos y pelo rojo.</p>
+  <p class="how">Body o conjunto dorado con flecos y extensiones rojas.</p>
+  <p class="song">Cantá: <b>Soy</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/67-tini.jpg" alt="Tini: Conjunto a cuadros, botas altas y trenzas." loading="lazy" width="576" height="720">
+  <h3>Tini</h3>
+  <p>Conjunto a cuadros, botas altas y trenzas.</p>
+  <p class="how">Pollera a cuadros, botas altas, top y trenzas largas.</p>
+  <p class="song">Cantá: <b>Miénteme</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/68-becerra.jpg" alt="María Becerra: Todo azul, de pies a cabeza, y rodete alto." loading="lazy" width="576" height="720">
+  <h3>María Becerra</h3>
+  <p>Todo azul, de pies a cabeza, y rodete alto.</p>
+  <p class="how">Conjunto azul ajustado y dos rodetes o coleta alta.</p>
+  <p class="song">Cantá: <b>Automático</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/69-duki.jpg" alt="Duki: Anteojos finos, tatuajes en la cara y campera de marca." loading="lazy" width="576" height="720">
+  <h3>Duki</h3>
+  <p>Anteojos finos, tatuajes en la cara y campera de marca.</p>
+  <p class="how">Anteojos finos de color, tatuajes pintados en la cara y campera.</p>
+  <p class="song">Cantá: <b>She Don&#x27;t Give a Fo</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+<article class="look" data-level="2">
+  <img src="img/70-ca7riel.jpg" alt="Ca7riel y Paco Amoroso: Tiny Desk: gorro azul peludo y anteojos espejados, chaleco de corazones rojos que dicen te amo. Para ir en dúo." loading="lazy" width="576" height="720">
+  <h3>Ca7riel y Paco Amoroso</h3>
+  <p>Tiny Desk: gorro azul peludo y anteojos espejados, chaleco de corazones rojos que dicen te amo. Para ir en dúo.</p>
+  <p class="how">Gorro peludo azul y remera estampada para uno; corazones rojos de tela y anteojos negros para el otro.</p>
+  <p class="song">Cantá: <b>Papota</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</p>
+</article>
+<article class="look" data-level="1">
+  <img src="img/71-bizarrap.jpg" alt="Bizarrap: Gorra negra y anteojos negros grandes. No canta, pero se arma en un minuto." loading="lazy" width="576" height="720">
+  <h3>Bizarrap</h3>
+  <p>Gorra negra y anteojos negros grandes. No canta, pero se arma en un minuto.</p>
+  <p class="how">Gorra, anteojos oscuros enormes y buzo.</p>
+  <p class="song">Cantá: <b>Shakira: Bzrp Music Sessions, Vol. 53</b></p>
+  <p class="lvl"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</p>
+</article>
+  </div>
+</section>
+</main>
+<footer class="pie"><div class="wrap">
+  <p>Página privada y sin fines comerciales, hecha solo para los invitados del cumple de Maru. Las fotos pertenecen a sus autores y se usan únicamente como referencia de vestuario. Si alguna es tuya y preferís que no esté, avisanos y la sacamos.</p>
+  <details>
+    <summary>De dónde salieron las fotos</summary>
+    <ol>
+<li><a href="https://www.jacketscreator.com/product/freddie-mercury-yellow-jacket/">Freddie Mercury</a></li>
+<li><a href="https://www.namibian.com.na/?n=92638617">Michael Jackson</a></li>
+<li><a href="https://kilroywashereshop.com/diy-madonna-virgin-costume/">Madonna</a></li>
+<li><a href="https://www.womanandhome.com/ginger-spice-union-jack-dress/">Spice Girls</a></li>
+<li><a href="https://www.pinterest.com/pin/542472717592329236/">Prince</a></li>
+<li><a href="https://www.euronews.com/culture/2023/04/06/david-bowies-lightning-bolt-new-london-exhibition-on-rocks-most-iconic-album-cover">David Bowie</a></li>
+<li><a href="https://www.thefashionisto.com/articles/elvis-presley-fashion/">Elvis Presley</a></li>
+<li><a href="https://archiecho.com/90s-party-outfit-ideas-inspiration-from-the-past">Kurt Cobain</a></li>
+<li><a href="https://graziadaily.co.uk/celebrity/news/2010-pop-culture-moments/">Lady Gaga</a></li>
+<li><a href="https://www.pinterest.com/pin/cher-circa-1970s-in-bob-mackie-nicknamed-electric-feathers-for-the-mego-cher-doll-version-of-the-same-outfit--309552174378932294/">Cher</a></li>
+<li><a href="https://id.pinterest.com/pin/66005950776097790/">Tina Turner</a></li>
+<li><a href="https://www.pinterest.com/pin/antique-and-vintage-jewellery-on-instagram-choosing-the-most-extravagant-look-worn-by-elton-john-certainly-i--745064332108274921/">Elton John</a></li>
+<li><a href="https://costumerocket.com/britney-spears-baby-one-more-time-school-girl-costume/">Britney Spears</a></li>
+<li><a href="https://people.com/justin-timberlake-dressed-up-like-beyonce-to-convince-her-to-do-2008-snl-sketch-8781707">Beyoncé</a></li>
+<li><a href="https://mammypi.com/rihannas-unfashionable-2015-met-gala-gown/">Rihanna</a></li>
+<li><a href="https://ca.pinterest.com/pin/amy-on-instagram-alright-so-next-up-ammmmys-beehive-look-in-this-picture-she-was-shooting-for-tears-dry-on-their-own-on--794111346777951451/">Amy Winehouse</a></li>
+<li><a href="https://www.vintag.es/2026/02/bob-marley-1970s.html">Bob Marley</a></li>
+<li><a href="https://www.pinterest.co.uk/pin/476677941788534886/">KISS</a></li>
+<li><a href="https://www.pinterest.com/pin/445363850623118392/">Slash</a></li>
+<li><a href="https://www.vintag.es/2024/02/axl-rose-on-stage.html">Axl Rose</a></li>
+<li><a href="https://justmyglasses.com/ozzy-osbourne-sunglasses/">Ozzy Osbourne</a></li>
+<li><a href="https://pixels.com/featured/john-lennon-and-yoko-ono-1969-retro-photography-archive.html">John Lennon y Yoko Ono</a></li>
+<li><a href="https://www.pinterest.com/pin/super-seventies-stevie-wonder--851110029549079407/">Stevie Wonder</a></li>
+<li><a href="https://mx.pinterest.com/pin/portrait--91620173665355960/">Whitney Houston</a></li>
+<li><a href="https://www.boredpanda.com/nostalgic-pics-70s-instagram-70z/">Dolly Parton</a></li>
+<li><a href="https://parade.com/19322/erinhill/cyndi-laupers-girls-just-want-to-have-fun-turns-30/">Cyndi Lauper</a></li>
+<li><a href="https://icon.ink/articles/grammys-2021-harry-styles/">Harry Styles</a></li>
+<li><a href="https://uk.pinterest.com/pin/156218680817725904/">Taylor Swift</a></li>
+<li><a href="https://www.pinterest.com/pin/479985272770232955/">Shakira</a></li>
+<li><a href="https://people.com/style/bad-bunnys-best-outfits/">Bad Bunny</a></li>
+<li><a href="https://www.vibe.com/gallery/celia-cruz-most-iconic-looks/">Celia Cruz</a></li>
+<li><a href="https://www.vintag.es/2022/07/mick-jagger-on-stage.html">Mick Jagger</a></li>
+<li><a href="https://www.pinterest.com/pin/848154542299742259/">Angus Young</a></li>
+<li><a href="https://www.pinterest.com/pin/1477812372834049/">ABBA</a></li>
+<li><a href="https://www.vintag.es/2025/03/steven-tyler-1970s.html">Steven Tyler</a></li>
+<li><a href="https://www.moviemarket.com/109832/janis-joplin-waering-sunglasses-feathers-in-hair-1975-movie-janis-8x10-photo/">Janis Joplin</a></li>
+<li><a href="https://www.efashionramp.com/iconic-billie-eilish-outfits">Billie Eilish</a></li>
+<li><a href="https://www.revistagq.com/moda/articulo/frank-sinatra-claves-elegancia-masculina">Frank Sinatra</a></li>
+<li><a href="https://number1sblog.com/category/on-this-day/">Village People</a></li>
+<li><a href="https://popsa.com/en-gb/perspectives/annie-lennox-retrospective-memoir/">Annie Lennox</a></li>
+<li><a href="https://www.pinterest.com/pin/296111744251705944/">Boy George</a></li>
+<li><a href="https://www.dazeddigital.com/fashion/article/62513/1/met-gala-2024-dazed-editors-pick-wildcard-looks-garden-of-time-sleeping-beauties">Björk</a></li>
+<li><a href="https://storage.googleapis.com/dxuoqodgjywlqe/dressing-up-the-cure.html">Robert Smith</a></li>
+<li><a href="https://www.pinterest.co.uk/pin/44895327529196087/">Olivia Newton-John</a></li>
+<li><a href="https://www.the-sun.com/entertainment/7034283/why-does-sia-cover-her-face/">Sia</a></li>
+<li><a href="https://www.classic-rock-covers.com/2020/03/patti-smith-horses-1975.html">Patti Smith</a></li>
+<li><a href="https://www.pinterest.com/pin/gwen-stefani--326159198031023417/">Gwen Stefani</a></li>
+<li><a href="https://www.billboard.com/music/latin/ricky-martin-livin-la-vida-loca-lyrics-8513539/">Ricky Martin</a></li>
+<li><a href="https://www.diariopanorama.com/noticia/452824/desde-mundo-musica-hasta-pasarelas-quienes-son-famosos-vitiligo">Charly García</a></li>
+<li><a href="https://www.latimes.com/espanol/entretenimiento/articulo/2021-08-28/sueno-stereo-soda-mas-cerca-del-salon-de-la-fama-del-rock-and-roll">Soda Stereo</a></li>
+<li><a href="https://ar.pinterest.com/pin/73746512641384825/">Luis Alberto Spinetta</a></li>
+<li><a href="https://ar.pinterest.com/pin/619456123772583020/">Fito Páez</a></li>
+<li><a href="https://www.pinterest.com/pin/532550724707576024/">Andrés Calamaro</a></li>
+<li><a href="https://www.prensa.com/vivir/muere-el-indio-solari-cantante-de-los-redonditos-de-ricota-e-icono-del-rock-argentino/">Indio Solari</a></li>
+<li><a href="https://www.cadenanueve.com/2024/03/10/hoy-se-celebra-el-dia-del-guitarrista-en-argentina-en-homenaje-a-norberto-pappo-napolitano/">Pappo</a></li>
+<li><a href="https://www.pinterest.com/pin/584412489170973807/">Federico Moura</a></li>
+<li><a href="https://www.eldia.com/nota/2020-3-2-2-8-14-la-noche-triste-de-mercedes-sosa-detenida-en-la-plata-la-ciudad">Mercedes Sosa</a></li>
+<li><a href="https://ar.pinterest.com/pin/656962664401654729/">Sandro</a></li>
+<li><a href="https://www.academiacolecciones.com/musica/inventario.php?id=M-6641">Carlos Gardel</a></li>
+<li><a href="https://ar.pinterest.com/pin/656118239503611373/">Gilda</a></li>
+<li><a href="https://www.diariopopular.com.ar/musica/se-cumplen-20-anos-la-tragica-muerte-rodrigo-bueno-el-potro-n484689">Rodrigo Bueno</a></li>
+<li><a href="https://www.eltiempo.com/bogota/pablo-lescano-lider-de-damas-gratis-repudio-los-desmanes-en-el-movistar-arena-de-bogota-3479341">Pablo Lescano</a></li>
+<li><a href="https://noeliabaldrich.blogspot.com/2018/04/soledad-pastorutti-bajo-el-cielo-de.html">Soledad Pastorutti</a></li>
+<li><a href="https://www.clarin.com/espectaculos/musica/fabulosos-cadillacs-recuperaron-lugar-realidad-abandonaron-cima-escena-local_0_PU5IFv2w50.html">Vicentico</a></li>
+<li><a href="https://www.alamy.com/stock-image-las-vegas-nevada-usa-16th-nov-2017-juliana-gattas-and-alejandro-sergi-165673681.html">Miranda!</a></li>
+<li><a href="https://www.ciudad.com.ar/espectaculos/lali-esposito-hizo-delirar-sus-fans-talento-sensualidad-mega-show-anuncio-nueva_203776/">Lali</a></li>
+<li><a href="https://viapais.com.ar/entretenimiento/los-mejores-looks-preppy-style-de-tini-stoessel-y-emilia-mernes/">Tini</a></li>
+<li><a href="https://www.neo2.com/maria-becerra-la-nena-de-argentina-animal-tour-entrevista-editorial-neo2-180/">María Becerra</a></li>
+<li><a href="https://www.gq.com.mx/articulo/duki-entrevista-album-5202-su-carrera-de-trap-y-documental-en-netflix">Duki</a></li>
+<li><a href="https://indiehoy.com/noticias/publican-en-casete-el-tiny-desk-de-ca7riel-y-paco-amoroso/">Ca7riel y Paco Amoroso</a></li>
+<li><a href="https://www.gq.com.mx/articulo/music-sessions-de-bizarrap-mejores-canciones-a-la-fecha">Bizarrap</a></li>
+<li><a href="https://www.billboard.com/music/latin/juan-luis-guerra-birthday-8459950/">Juan Luis Guerra</a></li>
+<li><a href="https://www.pinterest.com/pin/60869032458558337/">Selena</a></li>
+<li><a href="https://www.revistaclase.mx/noticias/luis-miguel-con-su-iconico-traje-negro-aparece-en-importante-ranking/">Luis Miguel</a></li>
+<li><a href="https://www.hola.com/belleza/actualidad/galeria/20230309227622/karol-g-cambios-de-look/4/">Karol G</a></li>
+    </ol>
+  </details>
+</div></footer>
+<script>
+const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const INTERVALO = 3600;
+const carruseles = [...document.querySelectorAll('.car')].map((car, i) => {
+  const track = car.querySelector('.track');
+  const count = car.querySelector('.count');
+  const pauseBtn = car.querySelector('.pause');
+  const st = { paused: quieto, hover: false, focus: false, visible: true, holdUntil: 0 };
+  const items = () => [...track.querySelectorAll('.look:not([hidden])')];
+  const pos = el => el.offsetLeft;
+  const actual = () => {
+    const list = items();
+    let idx = 0;
+    list.forEach((el, n) => { if (pos(el) <= track.scrollLeft + 4) idx = n; });
+    return { list, idx };
+  };
+  const pinta = () => { const { list, idx } = actual(); count.textContent = list.length ? (idx + 1) + ' / ' + list.length : ''; };
+  const ir = left => track.scrollTo({ left, behavior: quieto ? 'auto' : 'smooth' });
+  const alFinal = () => track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+  const sig = () => { const { list, idx } = actual(); ir(alFinal() || idx >= list.length - 1 ? 0 : pos(list[idx + 1])); };
+  const ant = () => {
+    const { list, idx } = actual();
+    if (!list.length) return;
+    ir(track.scrollLeft <= 4 ? track.scrollWidth : pos(list[idx - 1] || list[0]));
+  };
+  const pinPausa = () => { pauseBtn.textContent = st.paused ? 'Seguir' : 'Pausar'; };
+  const espera = () => { st.holdUntil = Date.now() + 9000; };
+  car.querySelector('.next').addEventListener('click', () => { espera(); sig(); });
+  car.querySelector('.prev').addEventListener('click', () => { espera(); ant(); });
+  pauseBtn.addEventListener('click', () => { st.paused = !st.paused; pinPausa(); });
+  track.addEventListener('scroll', pinta, { passive: true });
+  track.addEventListener('pointerdown', espera, { passive: true });
+  // arrastre con mouse; con el dedo el navegador ya desliza solo
+  let drag = null;
+  let finSnap = 0;
+  track.addEventListener('dragstart', e => e.preventDefault());
+  track.addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    clearTimeout(finSnap);
+    drag = { x: e.clientX, left: track.scrollLeft };
+    track.setPointerCapture(e.pointerId);
+    track.classList.add('drag');
+  });
+  track.addEventListener('pointermove', e => {
+    if (!drag) return;
+    track.scrollLeft = drag.left - (e.clientX - drag.x);
+    espera();
+  });
+  const soltar = () => {
+    if (!drag) return;
+    drag = null;
+    espera();
+    const cerca = items().reduce((a, b) => Math.abs(pos(b) - track.scrollLeft) < Math.abs(pos(a) - track.scrollLeft) ? b : a);
+    ir(pos(cerca));
+    finSnap = setTimeout(() => track.classList.remove('drag'), 500);
+  };
+  track.addEventListener('pointerup', soltar);
+  track.addEventListener('pointercancel', soltar);
+  track.addEventListener('touchstart', espera, { passive: true });
+  track.addEventListener('wheel', espera, { passive: true });
+  track.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') st.hover = true; });
+  track.addEventListener('pointerleave', () => { st.hover = false; });
+  car.addEventListener('focusin', e => { st.focus = e.target.matches(':focus-visible'); });
+  car.addEventListener('focusout', () => { st.focus = false; });
+  track.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); espera(); sig(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); espera(); ant(); }
+  });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(es => { st.visible = es[0].isIntersecting; }, { threshold: 0 }).observe(car);
+  }
+  setTimeout(() => setInterval(() => {
+    if (!st.paused && !st.hover && !st.focus && st.visible && !document.hidden && Date.now() > st.holdUntil) sig();
+  }, INTERVALO), i * 1200);
+  pinPausa();
+  pinta();
+  return { car, track, items, pinta };
+});
+const btns = [...document.querySelectorAll('.f')];
+const vacio = document.querySelector('.vacio');
+const activos = { region: new Set(), nivel: new Set() };
+const aplicar = () => {
+  btns.forEach(b => {
+    const on = b.dataset.grupo === 'todos' ? !activos.region.size && !activos.nivel.size : activos[b.dataset.grupo].has(b.dataset.v);
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-pressed', on);
+  });
+  let hay = false;
+  carruseles.forEach(c => {
+    c.track.querySelectorAll('.look').forEach(l => { l.hidden = activos.nivel.size > 0 && !activos.nivel.has(l.dataset.level); });
+    const ok = (!activos.region.size || activos.region.has(c.car.dataset.region)) && c.items().length > 0;
+    c.car.hidden = !ok;
+    hay = hay || ok;
+    c.track.scrollLeft = 0;
+    c.pinta();
+  });
+  vacio.hidden = hay;
+};
+btns.forEach(b => b.addEventListener('click', () => {
+  if (b.dataset.grupo === 'todos') {
+    activos.region.clear();
+    activos.nivel.clear();
+  } else {
+    const set = activos[b.dataset.grupo];
+    set.has(b.dataset.v) ? set.delete(b.dataset.v) : set.add(b.dataset.v);
+  }
+  aplicar();
+}));
+</script>
+</body>
+</html>
