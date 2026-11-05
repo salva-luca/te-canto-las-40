@@ -11,6 +11,7 @@ L = [
 ("selena",6,"Selena","El mono violeta brillante de 1995: ombligo al aire y pantalón oxford.","Top y pantalón oxford violetas con brillos, pelo negro y labios rojos.","Como la Flor",2,"int"),
 ("elvis",6,"Elvis Presley","Enterito blanco con pedrería, cuello alto y jopo.","Mono blanco, cinturón grande, collar de flores y mucho gel.","Suspicious Minds",3,"int"),
 ("kurt",7,"Kurt Cobain","Camisa escocesa abierta sobre remera, jean gastado. Grunge puro.","Camisa escocesa, remera vieja, jean roto y pelo rubio despeinado.","Smells Like Teen Spirit",1,"int"),
+("jamiroquai",0,"Jamiroquai","Jay Kay: sombrero gigante de peluche, polar azul y barbita.","Sombrero alto y peludo, polar azul con cierre y barba pintada si no tenés.","Virtual Insanity",2,"int"),
 ("gaga",2,"Lady Gaga","El vestido de carne de 2010.","Vestido hecho con papel o tela que imite carne, y peluca platinada.","Poker Face",3,"int"),
 ("cher",0,"Cher","Bob Mackie: vestido blanco y negro, tocado de plumas gigante.","Vestido largo ajustado, plumas en la cabeza y pelo negro lacio.","Believe",3,"int"),
 ("luismi",1,"Luis Miguel","Traje oscuro impecable, corbata, jopo y bronceado.","Traje oscuro, corbata, gel en el pelo y autobronceante sin culpa.","La Incondicional",1,"int"),

@@ -76,9 +76,12 @@ for region, titulo in REGIONES.items():
   </div>
 </section>""")
 
-credit_rows = "\n".join(
-    f'<li><a href="{e(c["page"] or c["url"])}">{e(c["name"])}</a></li>' for c in creds
-)
+def credito(c):
+    enlace = c["page"] or c["url"]
+    return f'<li><a href="{e(enlace)}">{e(c["name"])}</a></li>' if enlace else f'<li>{e(c["name"])}</li>'
+
+
+credit_rows = "\n".join(credito(c) for c in creds)
 
 def boton(grupo, valor, texto, marca=""):
     return f'<button type="button" class="f" data-grupo="{grupo}" data-v="{valor}" aria-pressed="false">{marca}{texto}</button>'
