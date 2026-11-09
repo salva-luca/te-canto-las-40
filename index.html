@@ -81,6 +81,35 @@ main { flex: 1 0 auto; }
 .look .lvl .st { color: var(--oro-claro); margin-right: 1px; }
 .look .lvl .st:last-of-type { margin-right: 6px; }
 
+.cta { display: inline-flex; align-items: center; gap: 10px; margin-top: clamp(16px, 2vw, 24px); padding: 10px 18px 9px; border-radius: 99px;
+  background: var(--oro-claro); color: var(--noche); font-weight: 800; font-size: 1.02rem; text-decoration: none; letter-spacing: -.01em; }
+.cta svg { width: 11px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.cta:hover { background: var(--blanco); }
+.ir-temas { flex: none; margin-left: auto; font-weight: 600; font-size: .92rem; white-space: nowrap; color: var(--oro-claro);
+  text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.ir-temas:hover { color: var(--blanco); }
+
+.temas { scroll-margin-top: 70px; padding-top: clamp(44px, 6vw, 80px); }
+.temas-top h2 { margin: 0; font: 400 clamp(2.1rem, 3.8vw, 3.1rem)/1.3 var(--script); -webkit-text-stroke: .01em var(--blanco); transform: rotate(-2.5deg); transform-origin: left center; }
+.temas-top p { max-width: 62ch; margin: 6px 0 0; }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: clamp(16px, 2vw, 24px) 0 clamp(18px, 2.2vw, 28px); }
+.tab { padding: 7px 14px 6px; border: 1px solid rgba(255, 255, 255, .45); border-radius: 99px; font-weight: 600; font-size: .95rem; white-space: nowrap; }
+.tab:hover { border-color: var(--oro-claro); color: var(--oro-claro); }
+.tab[aria-selected="true"], .tab[aria-selected="true"]:hover { background: var(--oro-claro); border-color: var(--oro-claro); color: var(--noche); }
+.lista { list-style: none; margin: 0; padding: 0; counter-reset: n; columns: 3 250px; column-gap: clamp(20px, 3vw, 44px); }
+.lista[hidden] { display: none; }
+.lista li { counter-increment: n; break-inside: avoid; display: grid; grid-template-columns: 2.1em 1fr; padding: 10px 0 11px; border-top: 1px solid rgba(255, 255, 255, .18); }
+.lista li::before { content: counter(n, decimal-leading-zero); grid-row: span 2; color: var(--oro-claro); font-weight: 600; font-size: .86rem; font-variant-numeric: tabular-nums; padding-top: .2em; }
+.lista b { font-weight: 800; font-size: 1.08rem; line-height: 1.2; letter-spacing: -.01em; }
+.lista span { font-size: .9rem; opacity: .82; }
+.lista li.elegido b { color: var(--oro-claro); }
+.azar { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin-top: clamp(16px, 2vw, 24px); }
+.tirar { padding: 8px 16px 7px; border: 1px solid var(--oro-claro); border-radius: 99px; font-weight: 600; color: var(--oro-claro); }
+.tirar:hover { background: var(--oro-claro); color: var(--noche); }
+.sorteo { margin: 0; font-weight: 600; }
+.sorteo b { color: var(--oro-claro); }
+.pie ol.fuentes { columns: 2 260px; }
+
 .pie { position: relative; margin-top: clamp(52px, 7vw, 90px); font-size: .86rem; overflow: hidden; }
 .pie .wrap { position: relative; z-index: 1; padding-bottom: clamp(70px, 9vw, 120px); }
 .pie::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: clamp(110px, 13vw, 170px); opacity: .5;
@@ -104,6 +133,11 @@ main { flex: 1 0 auto; }
   .opciones::-webkit-scrollbar { display: none; }
   .grupo { flex-wrap: nowrap; }
   .f { flex: none; }
+  .ir-temas { order: 1; margin-left: auto; padding-right: 20px; }
+  .opciones { order: 2; }
+  .tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-right: -20px; padding-right: 20px; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { flex: none; }
   .look { flex-basis: 74cqw; }
   .look img { height: calc(74cqw * 1.25); }
 }
@@ -116,9 +150,10 @@ main { flex: 1 0 auto; }
     <h1>Te canto las 40.</h1>
     <p class="dress">Dresscode: cantante.</p>
     <p class="bajada">¿No sabés de quién ir? Acá hay 76 ideas para armar el look y subirte a cantar su tema.</p>
+    <a class="cta" href="#temas">¿No sabés qué cantar?<svg viewBox="0 0 14 20" aria-hidden="true"><path d="M7 1v17M1 12l6 6 6-6"/></svg></a>
   </div>
 </header>
-<nav class="filtros" aria-label="Filtrar looks"><div class="wrap"><p class="f-tit">Filtrá los looks:</p><div class="opciones"><button type="button" class="f on" data-grupo="todos" aria-pressed="true">Todos</button><span class="grupo"><button type="button" class="f" data-grupo="region" data-v="int" aria-pressed="false">Internacionales</button><button type="button" class="f" data-grupo="region" data-v="arg" aria-pressed="false">Nacionales</button></span><span class="grupo"><button type="button" class="f" data-grupo="nivel" data-v="1" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</button><button type="button" class="f" data-grupo="nivel" data-v="2" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</button><button type="button" class="f" data-grupo="nivel" data-v="3" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Producción total</button></span></div></div></nav>
+<nav class="filtros" aria-label="Filtrar looks"><div class="wrap"><p class="f-tit">Filtrá los looks:</p><div class="opciones"><button type="button" class="f on" data-grupo="todos" aria-pressed="true">Todos</button><span class="grupo"><button type="button" class="f" data-grupo="region" data-v="int" aria-pressed="false">Internacionales</button><button type="button" class="f" data-grupo="region" data-v="arg" aria-pressed="false">Nacionales</button></span><span class="grupo"><button type="button" class="f" data-grupo="nivel" data-v="1" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</button><button type="button" class="f" data-grupo="nivel" data-v="2" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</button><button type="button" class="f" data-grupo="nivel" data-v="3" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Producción total</button></span></div><a class="ir-temas" href="#temas">¿Qué canto?</a></div></nav>
 <main>
 <p class="vacio wrap" hidden>No hay looks con esos filtros. Probá sacando alguno.</p>
 <section class="car wrap" data-region="int" aria-label="Internacionales">
@@ -755,6 +790,23 @@ main { flex: 1 0 auto; }
 </article>
   </div>
 </section>
+<section id="temas" class="temas wrap" aria-labelledby="temas-tit">
+  <header class="temas-top">
+    <h2 id="temas-tit">¿No sabés qué cantar?</h2>
+    <p>99 temas que nunca fallan en un karaoke, sacados de listas de los más cantados, con muchos de acá. Elegí un estilo.</p>
+  </header>
+  <div class="tabs" role="tablist" aria-label="Estilos"><button type="button" class="tab" role="tab" id="t-rock-nacional" aria-controls="p-t-rock-nacional" aria-selected="true" tabindex="0">Rock nacional</button><button type="button" class="tab" role="tab" id="t-bailable" aria-controls="p-t-bailable" aria-selected="false" tabindex="-1">Bailable</button><button type="button" class="tab" role="tab" id="t-romántico" aria-controls="p-t-romántico" aria-selected="false" tabindex="-1">Romántico</button><button type="button" class="tab" role="tab" id="t-latino" aria-controls="p-t-latino" aria-selected="false" tabindex="-1">Latino</button><button type="button" class="tab" role="tab" id="t-rock-internacional" aria-controls="p-t-rock-internacional" aria-selected="false" tabindex="-1">Rock internacional</button><button type="button" class="tab" role="tab" id="t-80s" aria-controls="p-t-80s" aria-selected="false" tabindex="-1">80s</button></div>
+  <ol class="lista" role="tabpanel" id="p-t-rock-nacional" aria-labelledby="t-rock-nacional"><li><b>Loco un poco</b><span>Turf</span></li><li><b>Mil horas</b><span>Los Abuelos de la Nada</span></li><li><b>De música ligera</b><span>Soda Stereo</span></li><li><b>Flaca</b><span>Andrés Calamaro</span></li><li><b>Nunca quise</b><span>Intoxicados</span></li><li><b>Como Alí</b><span>Los Piojos</span></li><li><b>Irresponsables</b><span>Babasónicos</span></li><li><b>Mujer amante</b><span>Rata Blanca</span></li><li><b>Lamento boliviano</b><span>Enanitos Verdes</span></li><li><b>Matador</b><span>Los Fabulosos Cadillacs</span></li><li><b>Mariposa Tecknicolor</b><span>Fito Páez</span></li><li><b>Demoliendo hoteles</b><span>Charly García</span></li><li><b>Sr. Cobranza</b><span>Bersuit Vergarabat</span></li><li><b>Hacelo por mí</b><span>Attaque 77</span></li><li><b>Pasos al costado</b><span>Turf</span></li><li><b>Juntos a la par</b><span>Pappo</span></li><li><b>Por mil noches</b><span>Airbag</span></li><li><b>Ella dijo</b><span>Estelares</span></li><li><b>Solo le pido a Dios</b><span>León Gieco</span></li></ol>
+<ol class="lista" role="tabpanel" id="p-t-bailable" aria-labelledby="t-bailable" hidden><li><b>El bombón</b><span>Los Palmeras</span></li><li><b>Amor clasificado</b><span>Rodrigo</span></li><li><b>Con la misma moneda</b><span>Karina</span></li><li><b>Una calle nos separa</b><span>Néstor en Bloque</span></li><li><b>No te creas tan importante</b><span>Damas Gratis</span></li><li><b>Los piratas</b><span>Los Auténticos Decadentes</span></li><li><b>La guitarra</b><span>Los Auténticos Decadentes</span></li><li><b>Loco (tu forma de ser)</b><span>Los Auténticos Decadentes</span></li><li><b>Don</b><span>Miranda!</span></li><li><b>Perfecta</b><span>Miranda!</span></li><li><b>Para no verte más</b><span>La Mosca</span></li><li><b>Ciudad mágica</b><span>Tan Biónica</span></li><li><b>Bon que bon</b><span>La Mona Jiménez</span></li><li><b>Nunca es suficiente</b><span>Los Ángeles Azules y Natalia Lafourcade</span></li><li><b>Mi gran noche</b><span>Raphael</span></li><li><b>I Will Survive</b><span>Gloria Gaynor</span></li><li><b>Dancing Queen</b><span>ABBA</span></li><li><b>Uptown Funk</b><span>Bruno Mars</span></li></ol>
+<ol class="lista" role="tabpanel" id="p-t-romántico" aria-labelledby="t-romántico" hidden><li><b>Hasta que me olvides</b><span>Luis Miguel</span></li><li><b>No podrás</b><span>Cristian Castro</span></li><li><b>Tuyo siempre</b><span>Andrés Calamaro</span></li><li><b>Cómo te extraño mi amor</b><span>Leo Dan</span></li><li><b>Olvídame y pega la vuelta</b><span>Pimpinela</span></li><li><b>El amor después del amor</b><span>Fito Páez</span></li><li><b>Algo contigo</b><span>Vicentico</span></li><li><b>La llave</b><span>Abel Pintos</span></li><li><b>Se nos rompió el amor</b><span>Rocío Jurado</span></li><li><b>Vivir así es morir de amor</b><span>Camilo Sesto</span></li><li><b>Amiga mía</b><span>Alejandro Sanz</span></li><li><b>Labios compartidos</b><span>Maná</span></li><li><b>19 días y 500 noches</b><span>Joaquín Sabina</span></li><li><b>La bikina</b><span>Luis Miguel</span></li><li><b>I Will Always Love You</b><span>Whitney Houston</span></li><li><b>Shallow</b><span>Lady Gaga y Bradley Cooper</span></li></ol>
+<ol class="lista" role="tabpanel" id="p-t-latino" aria-labelledby="t-latino" hidden><li><b>La vida es un carnaval</b><span>Celia Cruz</span></li><li><b>Caraluna</b><span>Bacilos</span></li><li><b>Me voy</b><span>Julieta Venegas</span></li><li><b>Limón y sal</b><span>Julieta Venegas</span></li><li><b>Día de enero</b><span>Shakira</span></li><li><b>La bicicleta</b><span>Shakira y Carlos Vives</span></li><li><b>La camisa negra</b><span>Juanes</span></li><li><b>Vivir mi vida</b><span>Marc Anthony</span></li><li><b>Bailando</b><span>Enrique Iglesias</span></li><li><b>Despacito</b><span>Luis Fonsi y Daddy Yankee</span></li><li><b>Gasolina</b><span>Daddy Yankee</span></li><li><b>Qué más pues</b><span>María Becerra y J Balvin</span></li><li><b>MAMIII</b><span>Becky G y Karol G</span></li><li><b>Despechá</b><span>Rosalía</span></li><li><b>Como la flor</b><span>Selena</span></li><li><b>Amor eterno</b><span>Juan Gabriel</span></li></ol>
+<ol class="lista" role="tabpanel" id="p-t-rock-internacional" aria-labelledby="t-rock-internacional" hidden><li><b>Bohemian Rhapsody</b><span>Queen</span></li><li><b>Don&#x27;t Stop Believin&#x27;</b><span>Journey</span></li><li><b>Livin&#x27; on a Prayer</b><span>Bon Jovi</span></li><li><b>Sweet Child O&#x27; Mine</b><span>Guns N&#x27; Roses</span></li><li><b>You Shook Me All Night Long</b><span>AC/DC</span></li><li><b>Smells Like Teen Spirit</b><span>Nirvana</span></li><li><b>Wonderwall</b><span>Oasis</span></li><li><b>Mr. Brightside</b><span>The Killers</span></li><li><b>Free Fallin&#x27;</b><span>Tom Petty</span></li><li><b>Creep</b><span>Radiohead</span></li><li><b>Hey Jude</b><span>The Beatles</span></li><li><b>Satisfaction</b><span>The Rolling Stones</span></li><li><b>I Love Rock &#x27;n&#x27; Roll</b><span>Joan Jett</span></li><li><b>Summer of &#x27;69</b><span>Bryan Adams</span></li><li><b>We Will Rock You</b><span>Queen</span></li><li><b>Héroe de leyenda</b><span>Héroes del Silencio</span></li></ol>
+<ol class="lista" role="tabpanel" id="p-t-80s" aria-labelledby="t-80s" hidden><li><b>Pronta entrega</b><span>Virus</span></li><li><b>Persiana americana</b><span>Soda Stereo</span></li><li><b>Hoy no me puedo levantar</b><span>Mecano</span></li><li><b>A quién le importa</b><span>Alaska y Dinarama</span></li><li><b>Amante bandido</b><span>Miguel Bosé</span></li><li><b>Take On Me</b><span>a-ha</span></li><li><b>Total Eclipse of the Heart</b><span>Bonnie Tyler</span></li><li><b>Girls Just Want to Have Fun</b><span>Cyndi Lauper</span></li><li><b>I Wanna Dance with Somebody</b><span>Whitney Houston</span></li><li><b>Pour Some Sugar on Me</b><span>Def Leppard</span></li><li><b>Come On Eileen</b><span>Dexys Midnight Runners</span></li><li><b>Walk Like an Egyptian</b><span>The Bangles</span></li><li><b>Sweet Dreams</b><span>Eurythmics</span></li><li><b>99 Luftballons</b><span>Nena</span></li></ol>
+  <div class="azar">
+    <button type="button" class="tirar">Tirame uno al azar</button>
+    <p class="sorteo" aria-live="polite"></p>
+  </div>
+</section>
 </main>
 <footer class="pie"><div class="wrap">
   <p>Página privada y sin fines comerciales, hecha solo para los invitados del cumple de Maru. Las fotos pertenecen a sus autores y se usan únicamente como referencia de vestuario. Si alguna es tuya y preferís que no esté, avisanos y la sacamos.</p>
@@ -837,6 +889,18 @@ main { flex: 1 0 auto; }
 <li><a href="https://www.revistaclase.mx/noticias/luis-miguel-con-su-iconico-traje-negro-aparece-en-importante-ranking/">Luis Miguel</a></li>
 <li><a href="https://www.hola.com/belleza/actualidad/galeria/20230309227622/karol-g-cambios-de-look/4/">Karol G</a></li>
 <li>Jamiroquai</li>
+    </ol>
+  </details>
+  <details>
+    <summary>De dónde salieron los temas</summary>
+    <ol class="fuentes">
+<li><a href="https://indiehoy.com/historias/20-canciones-para-hacer-karaoke/">Indie Hoy: Las 20 mejores canciones para hacer karaoke</a></li>
+<li><a href="https://indiehoy.com/historias/las-5-mejores-canciones-en-ingles-para-hacer-karaoke/">Indie Hoy: Las 5 mejores canciones en inglés para hacer karaoke</a></li>
+<li><a href="https://www.karaokemedia.com/blog/es/karaokes-clasicos-argentinos/">Karaoke Media: Karaokes clásicos argentinos</a></li>
+<li><a href="https://www.superprof.com.ar/blog/canciones-argentinas-para-triunfar-cantando/">Superprof Argentina: Canciones argentinas para cantar</a></li>
+<li><a href="https://singa.com/blog/es/mejores-canciones-de-karaoke/">Singa: Las mejores canciones de karaoke</a></li>
+<li><a href="https://stemsplit.io/es/blog/top-karaoke-songs">StemSplit: Top canciones de karaoke de todos los tiempos</a></li>
+<li><a href="https://stemsplit.io/es/blog/best-karaoke-songs">StemSplit: Mejores canciones para karaoke 2026</a></li>
     </ol>
   </details>
 </div></footer>
@@ -948,6 +1012,39 @@ btns.forEach(b => b.addEventListener('click', () => {
   }
   aplicar();
 }));
+const tabs = [...document.querySelectorAll('.tab')];
+const panel = t => document.getElementById(t.getAttribute('aria-controls'));
+const sorteo = document.querySelector('.sorteo');
+const elegir = t => {
+  tabs.forEach(x => {
+    const on = x === t;
+    x.setAttribute('aria-selected', on);
+    x.tabIndex = on ? 0 : -1;
+    panel(x).hidden = !on;
+  });
+  document.querySelectorAll('.lista li.elegido').forEach(li => li.classList.remove('elegido'));
+  sorteo.textContent = '';
+};
+tabs.forEach((t, i) => {
+  t.addEventListener('click', () => elegir(t));
+  t.addEventListener('keydown', e => {
+    const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+    if (!d) return;
+    e.preventDefault();
+    const n = tabs[(i + d + tabs.length) % tabs.length];
+    n.focus();
+    elegir(n);
+  });
+});
+document.querySelector('.tirar').addEventListener('click', () => {
+  const actual = tabs.find(t => t.getAttribute('aria-selected') === 'true');
+  const items = [...panel(actual).children];
+  const previo = panel(actual).querySelector('.elegido');
+  let li;
+  do { li = items[Math.floor(Math.random() * items.length)]; } while (items.length > 1 && li === previo);
+  items.forEach(x => x.classList.toggle('elegido', x === li));
+  sorteo.innerHTML = 'Te toca: <b>' + li.querySelector('b').textContent + '</b>, de ' + li.querySelector('span').textContent + '.';
+});
 </script>
 </body>
 </html>

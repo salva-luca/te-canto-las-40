@@ -5,6 +5,7 @@ import html, json, os, sys, urllib.parse
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import looks
+import temas
 
 # El nombre de la fiesta vive solo aca: cambiarlo y volver a correr el script.
 TITULO = "Te canto las 40"
@@ -75,6 +76,24 @@ for region, titulo in REGIONES.items():
 {chr(10).join(slides)}
   </div>
 </section>""")
+
+def tab_id(nombre):
+    return "t-" + "".join(ch for ch in nombre.lower().replace(" ", "-") if ch.isalnum() or ch == "-")
+
+
+tabs_html = "".join(
+    f'<button type="button" class="tab" role="tab" id="{tab_id(n)}" aria-controls="p-{tab_id(n)}" aria-selected="{str(i == 0).lower()}" tabindex="{0 if i == 0 else -1}">{e(n)}</button>'
+    for i, (n, _) in enumerate(temas.CATEGORIAS)
+)
+paneles_html = "\n".join(
+    f'<ol class="lista" role="tabpanel" id="p-{tab_id(n)}" aria-labelledby="{tab_id(n)}"{"" if i == 0 else " hidden"}>'
+    + "".join(f'<li><b>{e(t)}</b><span>{e(a)}</span></li>' for a, t in canciones)
+    + "</ol>"
+    for i, (n, canciones) in enumerate(temas.CATEGORIAS)
+)
+total_temas = sum(len(c) for _, c in temas.CATEGORIAS)
+fuentes_html = "\n".join(f'<li><a href="{e(u)}">{e(t)}</a></li>' for t, u in temas.FUENTES)
+
 
 def credito(c):
     enlace = c["page"] or c["url"]
@@ -176,6 +195,35 @@ main {{ flex: 1 0 auto; }}
 .look .lvl .st {{ color: var(--oro-claro); margin-right: 1px; }}
 .look .lvl .st:last-of-type {{ margin-right: 6px; }}
 
+.cta {{ display: inline-flex; align-items: center; gap: 10px; margin-top: clamp(16px, 2vw, 24px); padding: 10px 18px 9px; border-radius: 99px;
+  background: var(--oro-claro); color: var(--noche); font-weight: 800; font-size: 1.02rem; text-decoration: none; letter-spacing: -.01em; }}
+.cta svg {{ width: 11px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }}
+.cta:hover {{ background: var(--blanco); }}
+.ir-temas {{ flex: none; margin-left: auto; font-weight: 600; font-size: .92rem; white-space: nowrap; color: var(--oro-claro);
+  text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }}
+.ir-temas:hover {{ color: var(--blanco); }}
+
+.temas {{ scroll-margin-top: 70px; padding-top: clamp(44px, 6vw, 80px); }}
+.temas-top h2 {{ margin: 0; font: 400 clamp(2.1rem, 3.8vw, 3.1rem)/1.3 var(--script); -webkit-text-stroke: .01em var(--blanco); transform: rotate(-2.5deg); transform-origin: left center; }}
+.temas-top p {{ max-width: 62ch; margin: 6px 0 0; }}
+.tabs {{ display: flex; flex-wrap: wrap; gap: 6px; margin: clamp(16px, 2vw, 24px) 0 clamp(18px, 2.2vw, 28px); }}
+.tab {{ padding: 7px 14px 6px; border: 1px solid rgba(255, 255, 255, .45); border-radius: 99px; font-weight: 600; font-size: .95rem; white-space: nowrap; }}
+.tab:hover {{ border-color: var(--oro-claro); color: var(--oro-claro); }}
+.tab[aria-selected="true"], .tab[aria-selected="true"]:hover {{ background: var(--oro-claro); border-color: var(--oro-claro); color: var(--noche); }}
+.lista {{ list-style: none; margin: 0; padding: 0; counter-reset: n; columns: 3 250px; column-gap: clamp(20px, 3vw, 44px); }}
+.lista[hidden] {{ display: none; }}
+.lista li {{ counter-increment: n; break-inside: avoid; display: grid; grid-template-columns: 2.1em 1fr; padding: 10px 0 11px; border-top: 1px solid rgba(255, 255, 255, .18); }}
+.lista li::before {{ content: counter(n, decimal-leading-zero); grid-row: span 2; color: var(--oro-claro); font-weight: 600; font-size: .86rem; font-variant-numeric: tabular-nums; padding-top: .2em; }}
+.lista b {{ font-weight: 800; font-size: 1.08rem; line-height: 1.2; letter-spacing: -.01em; }}
+.lista span {{ font-size: .9rem; opacity: .82; }}
+.lista li.elegido b {{ color: var(--oro-claro); }}
+.azar {{ display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin-top: clamp(16px, 2vw, 24px); }}
+.tirar {{ padding: 8px 16px 7px; border: 1px solid var(--oro-claro); border-radius: 99px; font-weight: 600; color: var(--oro-claro); }}
+.tirar:hover {{ background: var(--oro-claro); color: var(--noche); }}
+.sorteo {{ margin: 0; font-weight: 600; }}
+.sorteo b {{ color: var(--oro-claro); }}
+.pie ol.fuentes {{ columns: 2 260px; }}
+
 .pie {{ position: relative; margin-top: clamp(52px, 7vw, 90px); font-size: .86rem; overflow: hidden; }}
 .pie .wrap {{ position: relative; z-index: 1; padding-bottom: clamp(70px, 9vw, 120px); }}
 .pie::after {{ content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: clamp(110px, 13vw, 170px); opacity: .5;
@@ -199,6 +247,11 @@ main {{ flex: 1 0 auto; }}
   .opciones::-webkit-scrollbar {{ display: none; }}
   .grupo {{ flex-wrap: nowrap; }}
   .f {{ flex: none; }}
+  .ir-temas {{ order: 1; margin-left: auto; padding-right: 20px; }}
+  .opciones {{ order: 2; }}
+  .tabs {{ flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-right: -20px; padding-right: 20px; }}
+  .tabs::-webkit-scrollbar {{ display: none; }}
+  .tab {{ flex: none; }}
   .look {{ flex-basis: 74cqw; }}
   .look img {{ height: calc(74cqw * 1.25); }}
 }}
@@ -211,12 +264,25 @@ main {{ flex: 1 0 auto; }}
     <h1>{e(TITULO)}.</h1>
     <p class="dress">Dresscode: cantante.</p>
     <p class="bajada">¿No sabés de quién ir? Acá hay {len(looks.L)} ideas para armar el look y subirte a cantar su tema.</p>
+    <a class="cta" href="#temas">¿No sabés qué cantar?<svg viewBox="0 0 14 20" aria-hidden="true"><path d="M7 1v17M1 12l6 6 6-6"/></svg></a>
   </div>
 </header>
-<nav class="filtros" aria-label="Filtrar looks"><div class="wrap"><p class="f-tit">Filtrá los looks:</p><div class="opciones">{filters}</div></div></nav>
+<nav class="filtros" aria-label="Filtrar looks"><div class="wrap"><p class="f-tit">Filtrá los looks:</p><div class="opciones">{filters}</div><a class="ir-temas" href="#temas">¿Qué canto?</a></div></nav>
 <main>
 <p class="vacio wrap" hidden>No hay looks con esos filtros. Probá sacando alguno.</p>
 {chr(10).join(secciones)}
+<section id="temas" class="temas wrap" aria-labelledby="temas-tit">
+  <header class="temas-top">
+    <h2 id="temas-tit">¿No sabés qué cantar?</h2>
+    <p>{total_temas} temas que nunca fallan en un karaoke, sacados de listas de los más cantados, con muchos de acá. Elegí un estilo.</p>
+  </header>
+  <div class="tabs" role="tablist" aria-label="Estilos">{tabs_html}</div>
+  {paneles_html}
+  <div class="azar">
+    <button type="button" class="tirar">Tirame uno al azar</button>
+    <p class="sorteo" aria-live="polite"></p>
+  </div>
+</section>
 </main>
 <footer class="pie"><div class="wrap">
   <p>Página privada y sin fines comerciales, hecha solo para los invitados del cumple de Maru. Las fotos pertenecen a sus autores y se usan únicamente como referencia de vestuario. Si alguna es tuya y preferís que no esté, avisanos y la sacamos.</p>
@@ -224,6 +290,12 @@ main {{ flex: 1 0 auto; }}
     <summary>De dónde salieron las fotos</summary>
     <ol>
 {credit_rows}
+    </ol>
+  </details>
+  <details>
+    <summary>De dónde salieron los temas</summary>
+    <ol class="fuentes">
+{fuentes_html}
     </ol>
   </details>
 </div></footer>
@@ -335,6 +407,39 @@ btns.forEach(b => b.addEventListener('click', () => {{
   }}
   aplicar();
 }}));
+const tabs = [...document.querySelectorAll('.tab')];
+const panel = t => document.getElementById(t.getAttribute('aria-controls'));
+const sorteo = document.querySelector('.sorteo');
+const elegir = t => {{
+  tabs.forEach(x => {{
+    const on = x === t;
+    x.setAttribute('aria-selected', on);
+    x.tabIndex = on ? 0 : -1;
+    panel(x).hidden = !on;
+  }});
+  document.querySelectorAll('.lista li.elegido').forEach(li => li.classList.remove('elegido'));
+  sorteo.textContent = '';
+}};
+tabs.forEach((t, i) => {{
+  t.addEventListener('click', () => elegir(t));
+  t.addEventListener('keydown', e => {{
+    const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+    if (!d) return;
+    e.preventDefault();
+    const n = tabs[(i + d + tabs.length) % tabs.length];
+    n.focus();
+    elegir(n);
+  }});
+}});
+document.querySelector('.tirar').addEventListener('click', () => {{
+  const actual = tabs.find(t => t.getAttribute('aria-selected') === 'true');
+  const items = [...panel(actual).children];
+  const previo = panel(actual).querySelector('.elegido');
+  let li;
+  do {{ li = items[Math.floor(Math.random() * items.length)]; }} while (items.length > 1 && li === previo);
+  items.forEach(x => x.classList.toggle('elegido', x === li));
+  sorteo.innerHTML = 'Te toca: <b>' + li.querySelector('b').textContent + '</b>, de ' + li.querySelector('span').textContent + '.';
+}});
 </script>
 </body>
 </html>
