@@ -77,21 +77,29 @@ for region, titulo in REGIONES.items():
   </div>
 </section>""")
 
-def tab_id(nombre):
-    return "t-" + "".join(ch for ch in nombre.lower().replace(" ", "-") if ch.isalnum() or ch == "-")
+def decada(anio):
+    return next(k for k, _, desde, hasta in temas.DECADAS if desde <= anio <= hasta)
 
 
-tabs_html = "".join(
-    f'<button type="button" class="tab" role="tab" id="{tab_id(n)}" aria-controls="p-{tab_id(n)}" aria-selected="{str(i == 0).lower()}" tabindex="{0 if i == 0 else -1}">{e(n)}</button>'
-    for i, (n, _) in enumerate(temas.CATEGORIAS)
+def boton_t(grupo, valor, texto):
+    return f'<button type="button" class="tf" data-grupo="{grupo}" data-v="{valor}" aria-pressed="false">{e(texto)}</button>'
+
+
+usados = {g for *_, gs in temas.T for g in gs.split()}
+assert usados <= set(temas.GENEROS), usados - set(temas.GENEROS)
+filtros_temas = [
+    ("Origen", "".join(boton_t("o", k, v) for k, v in REGIONES.items())),
+    ("Género", "".join(boton_t("g", k, v) for k, v in temas.GENEROS.items())),
+    ("Década", "".join(boton_t("d", k, v) for k, v, *_ in temas.DECADAS)),
+]
+filtros_temas_html = "\n".join(
+    f'<div class="tf-fila"><p class="tf-tit">{t}</p><div class="tf-ops">{b}</div></div>' for t, b in filtros_temas
 )
-paneles_html = "\n".join(
-    f'<ol class="lista" role="tabpanel" id="p-{tab_id(n)}" aria-labelledby="{tab_id(n)}"{"" if i == 0 else " hidden"}>'
-    + "".join(f'<li><b>{e(t)}</b><span>{e(a)}</span></li>' for a, t in canciones)
-    + "</ol>"
-    for i, (n, canciones) in enumerate(temas.CATEGORIAS)
+lista_html = "".join(
+    f'<li data-o="{o}" data-g="{g}" data-d="{decada(y)}"><b>{e(t)}</b><span>{e(a)} · {y}</span></li>'
+    for a, t, o, y, g in temas.T
 )
-total_temas = sum(len(c) for _, c in temas.CATEGORIAS)
+total_temas = len(temas.T)
 fuentes_html = "\n".join(f'<li><a href="{e(u)}">{e(t)}</a></li>' for t, u in temas.FUENTES)
 
 
@@ -206,18 +214,28 @@ main {{ flex: 1 0 auto; }}
 .temas {{ scroll-margin-top: 70px; padding-top: clamp(44px, 6vw, 80px); }}
 .temas-top h2 {{ margin: 0; font: 400 clamp(2.1rem, 3.8vw, 3.1rem)/1.3 var(--script); -webkit-text-stroke: .01em var(--blanco); transform: rotate(-2.5deg); transform-origin: left center; }}
 .temas-top p {{ max-width: 62ch; margin: 6px 0 0; }}
-.tabs {{ display: flex; flex-wrap: wrap; gap: 6px; margin: clamp(16px, 2vw, 24px) 0 clamp(18px, 2.2vw, 28px); }}
-.tab {{ padding: 7px 14px 6px; border: 1px solid rgba(255, 255, 255, .45); border-radius: 99px; font-weight: 600; font-size: .95rem; white-space: nowrap; }}
-.tab:hover {{ border-color: var(--oro-claro); color: var(--oro-claro); }}
-.tab[aria-selected="true"], .tab[aria-selected="true"]:hover {{ background: var(--oro-claro); border-color: var(--oro-claro); color: var(--noche); }}
+.tf-filtros {{ display: grid; gap: 10px; margin: clamp(16px, 2vw, 24px) 0 clamp(14px, 1.8vw, 20px); }}
+.tf-fila {{ display: flex; align-items: center; gap: 8px 14px; }}
+.tf-tit {{ flex: none; width: 4.6em; margin: 0; font-weight: 800; font-size: .95rem; }}
+.tf-ops {{ display: flex; flex-wrap: wrap; gap: 6px; }}
+.tf {{ padding: 6px 13px 5px; border: 1px solid rgba(255, 255, 255, .45); border-radius: 99px; font-weight: 600; font-size: .9rem; white-space: nowrap; }}
+.tf:hover {{ border-color: var(--oro-claro); color: var(--oro-claro); }}
+.tf[aria-pressed="true"], .tf[aria-pressed="true"]:hover {{ background: var(--oro-claro); border-color: var(--oro-claro); color: var(--noche); }}
+.tf-cuenta {{ display: flex; align-items: baseline; gap: 16px; margin: 0 0 10px; font-weight: 600; font-size: .92rem; }}
+.tf-cuenta .n {{ color: var(--oro-claro); font-variant-numeric: tabular-nums; margin-right: -.6em; }}
+.tf-cuenta .n::after {{ content: " "; }}
+.tf-limpiar {{ text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; font-weight: 600; }}
+.tf-limpiar[hidden], .tf-vacio[hidden] {{ display: none; }}
+.tf-vacio {{ margin: 8px 0 0; }}
+.lista li[hidden] {{ display: none; }}
 .lista {{ list-style: none; margin: 0; padding: 0; counter-reset: n; columns: 3 250px; column-gap: clamp(20px, 3vw, 44px); }}
-.lista[hidden] {{ display: none; }}
-.lista li {{ counter-increment: n; break-inside: avoid; display: grid; grid-template-columns: 2.1em 1fr; padding: 10px 0 11px; border-top: 1px solid rgba(255, 255, 255, .18); }}
-.lista li::before {{ content: counter(n, decimal-leading-zero); grid-row: span 2; color: var(--oro-claro); font-weight: 600; font-size: .86rem; font-variant-numeric: tabular-nums; padding-top: .2em; }}
+.lista li {{ counter-increment: n; break-inside: avoid; display: grid; grid-template-columns: 2.7em 1fr; padding: 10px 0 11px; border-top: 1px solid rgba(255, 255, 255, .18); }}
+.lista li::before {{ content: counter(n); grid-row: span 2; color: var(--oro-claro); font-weight: 600; font-size: .86rem; font-variant-numeric: tabular-nums; padding-top: .2em; }}
 .lista b {{ font-weight: 800; font-size: 1.08rem; line-height: 1.2; letter-spacing: -.01em; }}
 .lista span {{ font-size: .9rem; opacity: .82; }}
+.lista li.elegido {{ scroll-margin: 90px; }}
 .lista li.elegido b {{ color: var(--oro-claro); }}
-.azar {{ display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin-top: clamp(16px, 2vw, 24px); }}
+.azar {{ display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin: 0 0 clamp(18px, 2.2vw, 26px); }}
 .tirar {{ padding: 8px 16px 7px; border: 1px solid var(--oro-claro); border-radius: 99px; font-weight: 600; color: var(--oro-claro); }}
 .tirar:hover {{ background: var(--oro-claro); color: var(--noche); }}
 .sorteo {{ margin: 0; font-weight: 600; }}
@@ -249,9 +267,11 @@ main {{ flex: 1 0 auto; }}
   .f {{ flex: none; }}
   .ir-temas {{ order: 1; margin-left: auto; padding-right: 20px; }}
   .opciones {{ order: 2; }}
-  .tabs {{ flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-right: -20px; padding-right: 20px; }}
-  .tabs::-webkit-scrollbar {{ display: none; }}
-  .tab {{ flex: none; }}
+  .tf-fila {{ flex-wrap: wrap; gap: 6px; margin-right: -20px; }}
+  .tf-tit {{ width: auto; font-size: .9rem; }}
+  .tf-ops {{ flex-wrap: nowrap; width: 100%; overflow-x: auto; scrollbar-width: none; padding-right: 20px; }}
+  .tf-ops::-webkit-scrollbar {{ display: none; }}
+  .tf {{ flex: none; }}
   .look {{ flex-basis: 74cqw; }}
   .look img {{ height: calc(74cqw * 1.25); }}
 }}
@@ -274,14 +294,18 @@ main {{ flex: 1 0 auto; }}
 <section id="temas" class="temas wrap" aria-labelledby="temas-tit">
   <header class="temas-top">
     <h2 id="temas-tit">¿No sabés qué cantar?</h2>
-    <p>{total_temas} temas que nunca fallan en un karaoke, sacados de listas de los más cantados, con muchos de acá. Elegí un estilo.</p>
+    <p>{total_temas} temas que nunca fallan en un karaoke, sacados de listas de los más cantados, con muchos de acá. Combiná los filtros como quieras.</p>
   </header>
-  <div class="tabs" role="tablist" aria-label="Estilos">{tabs_html}</div>
-  {paneles_html}
+  <div class="tf-filtros" role="group" aria-label="Filtrar temas">
+{filtros_temas_html}
+  </div>
   <div class="azar">
     <button type="button" class="tirar">Tirame uno al azar</button>
     <p class="sorteo" aria-live="polite"></p>
   </div>
+  <p class="tf-cuenta" aria-live="polite"><span class="n">{total_temas}</span> temas<button type="button" class="tf-limpiar" hidden>Sacar filtros</button></p>
+  <ol class="lista">{lista_html}</ol>
+  <p class="tf-vacio" hidden>No hay temas con esa combinación. Probá sacando algún filtro.</p>
 </section>
 </main>
 <footer class="pie"><div class="wrap">
@@ -407,38 +431,43 @@ btns.forEach(b => b.addEventListener('click', () => {{
   }}
   aplicar();
 }}));
-const tabs = [...document.querySelectorAll('.tab')];
-const panel = t => document.getElementById(t.getAttribute('aria-controls'));
+const tfBtns = [...document.querySelectorAll('.tf')];
+const temasLi = [...document.querySelectorAll('.lista li')];
 const sorteo = document.querySelector('.sorteo');
-const elegir = t => {{
-  tabs.forEach(x => {{
-    const on = x === t;
-    x.setAttribute('aria-selected', on);
-    x.tabIndex = on ? 0 : -1;
-    panel(x).hidden = !on;
+const cuentaN = document.querySelector('.tf-cuenta .n');
+const limpiar = document.querySelector('.tf-limpiar');
+const tfVacio = document.querySelector('.tf-vacio');
+const tfAct = {{ o: new Set(), g: new Set(), d: new Set() }};
+const filtrarTemas = () => {{
+  tfBtns.forEach(b => b.setAttribute('aria-pressed', tfAct[b.dataset.grupo].has(b.dataset.v)));
+  let n = 0;
+  temasLi.forEach(li => {{
+    const ok = (!tfAct.o.size || tfAct.o.has(li.dataset.o))
+      && (!tfAct.g.size || li.dataset.g.split(' ').some(g => tfAct.g.has(g)))
+      && (!tfAct.d.size || tfAct.d.has(li.dataset.d));
+    li.hidden = !ok;
+    li.classList.remove('elegido');
+    if (ok) n++;
   }});
-  document.querySelectorAll('.lista li.elegido').forEach(li => li.classList.remove('elegido'));
+  cuentaN.textContent = n;
+  limpiar.hidden = !(tfAct.o.size || tfAct.g.size || tfAct.d.size);
+  tfVacio.hidden = n > 0;
   sorteo.textContent = '';
 }};
-tabs.forEach((t, i) => {{
-  t.addEventListener('click', () => elegir(t));
-  t.addEventListener('keydown', e => {{
-    const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-    if (!d) return;
-    e.preventDefault();
-    const n = tabs[(i + d + tabs.length) % tabs.length];
-    n.focus();
-    elegir(n);
-  }});
-}});
+tfBtns.forEach(b => b.addEventListener('click', () => {{
+  const set = tfAct[b.dataset.grupo];
+  set.has(b.dataset.v) ? set.delete(b.dataset.v) : set.add(b.dataset.v);
+  filtrarTemas();
+}}));
+limpiar.addEventListener('click', () => {{ Object.values(tfAct).forEach(x => x.clear()); filtrarTemas(); }});
 document.querySelector('.tirar').addEventListener('click', () => {{
-  const actual = tabs.find(t => t.getAttribute('aria-selected') === 'true');
-  const items = [...panel(actual).children];
-  const previo = panel(actual).querySelector('.elegido');
+  const visibles = temasLi.filter(li => !li.hidden);
+  if (!visibles.length) return;
+  const previo = visibles.find(li => li.classList.contains('elegido'));
   let li;
-  do {{ li = items[Math.floor(Math.random() * items.length)]; }} while (items.length > 1 && li === previo);
-  items.forEach(x => x.classList.toggle('elegido', x === li));
-  sorteo.innerHTML = 'Te toca: <b>' + li.querySelector('b').textContent + '</b>, de ' + li.querySelector('span').textContent + '.';
+  do {{ li = visibles[Math.floor(Math.random() * visibles.length)]; }} while (visibles.length > 1 && li === previo);
+  temasLi.forEach(x => x.classList.toggle('elegido', x === li));
+  sorteo.innerHTML = 'Te toca: <b>' + li.querySelector('b').textContent + '</b>, de ' + li.querySelector('span').textContent.split(' · ')[0] + '.';
 }});
 </script>
 </body>
