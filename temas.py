@@ -108,6 +108,7 @@ T = [
 ("Cristian Castro", "No podrás", "int", 1992, "latino romantico"),
 ("Juan Luis Guerra", "La bilirrubina", "int", 1990, "latino bailable"),
 ("Juan Luis Guerra", "Burbujas de amor", "int", 1990, "latino romantico"),
+("Juan Luis Guerra", "Bachata rosa", "int", 1990, "latino romantico"),
 ("Juan Luis Guerra", "Ojalá que llueva café", "int", 1989, "latino"),
 ("Celia Cruz", "La vida es un carnaval", "int", 1998, "latino bailable"),
 ("Selena", "Como la flor", "int", 1992, "latino bailable"),
