@@ -108,7 +108,7 @@ total_temas = len(temas.T)
 fuentes_html = "\n".join(f'<li><a href="{e(u)}">{e(t)}</a></li>' for t, u in temas.FUENTES)
 
 
-votar_hero = f'<a class="cta cta-votar" href="{e(VOTACION_URL)}" target="_blank" rel="noopener">Votá a los ganadores</a>' if VOTACION_ABIERTA else ""
+votar_hero = f'<a class="cta-votar" href="{e(VOTACION_URL)}" target="_blank" rel="noopener"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Votá a los ganadores<svg class="st" aria-hidden="true"><use href="#estrella"/></svg></a>' if VOTACION_ABIERTA else ""
 votar_nav = f'<a class="ir-votar" href="{e(VOTACION_URL)}" target="_blank" rel="noopener">Votá</a>' if VOTACION_ABIERTA else ""
 
 
@@ -244,10 +244,16 @@ main {{ flex: 1 0 auto; }}
   background: var(--oro-claro); color: var(--noche); font-weight: 800; font-size: 1.02rem; text-decoration: none; letter-spacing: -.01em; }}
 .cta svg {{ width: 11px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }}
 .cta:hover {{ background: var(--blanco); }}
-.ctas {{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: clamp(16px, 2vw, 24px); }}
+.ctas {{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: clamp(22px, 2.6vw, 32px); }}
 .ctas .cta {{ margin-top: 0; }}
-.cta-votar {{ background: var(--blanco); }}
-.cta-votar:hover {{ background: var(--oro-claro); }}
+.cta-votar {{ display: inline-flex; align-items: center; gap: 14px; padding: clamp(15px, 1.6vw, 20px) clamp(24px, 2.6vw, 36px); border-radius: 99px;
+  background: var(--oro-claro); color: var(--noche); font-weight: 800; font-size: clamp(1.2rem, 2vw, 1.6rem); letter-spacing: -.02em; text-decoration: none;
+  box-shadow: 0 0 0 3px var(--noche), 0 0 0 5px var(--oro-claro), 0 12px 36px rgba(23, 14, 9, .45); animation: brillo 2.4s ease-in-out infinite; }}
+.cta-votar .st {{ width: .8em; height: .8em; }}
+.cta-votar:hover {{ background: var(--blanco); animation: none; }}
+@keyframes brillo {{ 0%, 100% {{ box-shadow: 0 0 0 3px var(--noche), 0 0 0 5px var(--oro-claro), 0 12px 36px rgba(23, 14, 9, .45); }}
+  50% {{ box-shadow: 0 0 0 3px var(--noche), 0 0 0 5px var(--oro-claro), 0 0 46px 10px rgba(236, 210, 124, .55); }} }}
+@media (prefers-reduced-motion: reduce) {{ .cta-votar {{ animation: none; }} }}
 .ir-votar {{ flex: none; padding: 5px 13px 4px; border-radius: 99px; background: var(--blanco); color: var(--noche); font-weight: 800; font-size: .9rem; text-decoration: none; }}
 .ir-votar:hover {{ background: var(--oro-claro); }}
 .ir-temas {{ flex: none; margin-left: auto; font-weight: 600; font-size: .92rem; white-space: nowrap; color: var(--oro-claro);
@@ -347,9 +353,9 @@ main {{ flex: 1 0 auto; }}
 <header class="hero">
   <div class="wrap">
     <h1>{e(TITULO)}.</h1>
-    <p class="dress">Dresscode: cantante.</p>
-    <p class="bajada">¿No sabés de quién ir? Acá hay {len(looks.L)} ideas para armar el look y subirte a cantar su tema.</p>
-    <div class="ctas">{votar_hero}<a class="cta" href="#temas">¿No sabés qué cantar?<svg viewBox="0 0 14 20" aria-hidden="true"><path d="M7 1v17M1 12l6 6 6-6"/></svg></a></div>
+    <p class="dress">Y al final fueron {len(registro.NOCHE)}.</p>
+    <p class="bajada">La noche estuvo a la altura del dresscode: looks espectaculares, {len(registro.NOCHE)} temas cantados (le ganamos al título) y hasta una visita de la policía, que tampoco se la quiso perder. Ahora falta lo más importante: elegir a los ganadores.</p>
+    <div class="ctas">{votar_hero}</div>
   </div>
 </header>
 <main>
