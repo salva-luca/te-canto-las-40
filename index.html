@@ -85,6 +85,12 @@ main { flex: 1 0 auto; }
   background: var(--oro-claro); color: var(--noche); font-weight: 800; font-size: 1.02rem; text-decoration: none; letter-spacing: -.01em; }
 .cta svg { width: 11px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 .cta:hover { background: var(--blanco); }
+.ctas { display: flex; flex-wrap: wrap; gap: 10px; margin-top: clamp(16px, 2vw, 24px); }
+.ctas .cta { margin-top: 0; }
+.cta-votar { background: var(--blanco); }
+.cta-votar:hover { background: var(--oro-claro); }
+.ir-votar { flex: none; padding: 5px 13px 4px; border-radius: 99px; background: var(--blanco); color: var(--noche); font-weight: 800; font-size: .9rem; text-decoration: none; }
+.ir-votar:hover { background: var(--oro-claro); }
 .ir-temas { flex: none; margin-left: auto; font-weight: 600; font-size: .92rem; white-space: nowrap; color: var(--oro-claro);
   text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
 .ir-temas:hover { color: var(--blanco); }
@@ -144,6 +150,7 @@ main { flex: 1 0 auto; }
   .grupo { flex-wrap: nowrap; }
   .f { flex: none; }
   .ir-temas { order: 1; margin-left: auto; padding-right: 20px; }
+  .ir-votar { order: 1; margin-right: 20px; }
   .opciones { order: 2; }
   .tf-fila { flex-wrap: wrap; gap: 6px; margin-right: -20px; }
   .tf-tit { width: auto; font-size: .9rem; }
@@ -162,7 +169,7 @@ main { flex: 1 0 auto; }
     <h1>Te canto las 40.</h1>
     <p class="dress">Dresscode: cantante.</p>
     <p class="bajada">¿No sabés de quién ir? Acá hay 76 ideas para armar el look y subirte a cantar su tema.</p>
-    <a class="cta" href="#temas">¿No sabés qué cantar?<svg viewBox="0 0 14 20" aria-hidden="true"><path d="M7 1v17M1 12l6 6 6-6"/></svg></a>
+    <div class="ctas"><a class="cta" href="#temas">¿No sabés qué cantar?<svg viewBox="0 0 14 20" aria-hidden="true"><path d="M7 1v17M1 12l6 6 6-6"/></svg></a></div>
   </div>
 </header>
 <nav class="filtros" aria-label="Filtrar looks"><div class="wrap"><p class="f-tit">Filtrá los looks:</p><div class="opciones"><button type="button" class="f on" data-grupo="todos" aria-pressed="true">Todos</button><span class="grupo"><button type="button" class="f" data-grupo="region" data-v="int" aria-pressed="false">Internacionales</button><button type="button" class="f" data-grupo="region" data-v="arg" aria-pressed="false">Nacionales</button></span><span class="grupo"><button type="button" class="f" data-grupo="nivel" data-v="1" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</button><button type="button" class="f" data-grupo="nivel" data-v="2" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</button><button type="button" class="f" data-grupo="nivel" data-v="3" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Producción total</button></span></div><a class="ir-temas" href="#temas">¿Qué canto?</a></div></nav>

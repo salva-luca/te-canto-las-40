@@ -10,6 +10,10 @@ import temas
 # El nombre de la fiesta vive solo aca: cambiarlo y volver a correr el script.
 TITULO = "Te canto las 40"
 
+# Votación (Google Forms). Pasar a True cuando se abre la votación, correr build.py y republicar.
+VOTACION_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfm4kTeIla4ivfnao4KStZRraC-1g7lKOuU_QkIVsyZbKxxtA/viewform"
+VOTACION_ABIERTA = False
+
 NIVELES = {1: "Con lo que tenés en casa", 2: "Comprando un par de cosas", 3: "Producción total"}
 REGIONES = {"int": "Internacionales", "arg": "Nacionales"}
 e = html.escape
@@ -101,6 +105,10 @@ lista_html = "".join(
 )
 total_temas = len(temas.T)
 fuentes_html = "\n".join(f'<li><a href="{e(u)}">{e(t)}</a></li>' for t, u in temas.FUENTES)
+
+
+votar_hero = f'<a class="cta cta-votar" href="{e(VOTACION_URL)}" target="_blank" rel="noopener">Votá a los ganadores</a>' if VOTACION_ABIERTA else ""
+votar_nav = f'<a class="ir-votar" href="{e(VOTACION_URL)}" target="_blank" rel="noopener">Votá</a>' if VOTACION_ABIERTA else ""
 
 
 def credito(c):
@@ -207,6 +215,12 @@ main {{ flex: 1 0 auto; }}
   background: var(--oro-claro); color: var(--noche); font-weight: 800; font-size: 1.02rem; text-decoration: none; letter-spacing: -.01em; }}
 .cta svg {{ width: 11px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }}
 .cta:hover {{ background: var(--blanco); }}
+.ctas {{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: clamp(16px, 2vw, 24px); }}
+.ctas .cta {{ margin-top: 0; }}
+.cta-votar {{ background: var(--blanco); }}
+.cta-votar:hover {{ background: var(--oro-claro); }}
+.ir-votar {{ flex: none; padding: 5px 13px 4px; border-radius: 99px; background: var(--blanco); color: var(--noche); font-weight: 800; font-size: .9rem; text-decoration: none; }}
+.ir-votar:hover {{ background: var(--oro-claro); }}
 .ir-temas {{ flex: none; margin-left: auto; font-weight: 600; font-size: .92rem; white-space: nowrap; color: var(--oro-claro);
   text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }}
 .ir-temas:hover {{ color: var(--blanco); }}
@@ -266,6 +280,7 @@ main {{ flex: 1 0 auto; }}
   .grupo {{ flex-wrap: nowrap; }}
   .f {{ flex: none; }}
   .ir-temas {{ order: 1; margin-left: auto; padding-right: 20px; }}
+  .ir-votar {{ order: 1; margin-right: 20px; }}
   .opciones {{ order: 2; }}
   .tf-fila {{ flex-wrap: wrap; gap: 6px; margin-right: -20px; }}
   .tf-tit {{ width: auto; font-size: .9rem; }}
@@ -284,10 +299,10 @@ main {{ flex: 1 0 auto; }}
     <h1>{e(TITULO)}.</h1>
     <p class="dress">Dresscode: cantante.</p>
     <p class="bajada">¿No sabés de quién ir? Acá hay {len(looks.L)} ideas para armar el look y subirte a cantar su tema.</p>
-    <a class="cta" href="#temas">¿No sabés qué cantar?<svg viewBox="0 0 14 20" aria-hidden="true"><path d="M7 1v17M1 12l6 6 6-6"/></svg></a>
+    <div class="ctas">{votar_hero}<a class="cta" href="#temas">¿No sabés qué cantar?<svg viewBox="0 0 14 20" aria-hidden="true"><path d="M7 1v17M1 12l6 6 6-6"/></svg></a></div>
   </div>
 </header>
-<nav class="filtros" aria-label="Filtrar looks"><div class="wrap"><p class="f-tit">Filtrá los looks:</p><div class="opciones">{filters}</div><a class="ir-temas" href="#temas">¿Qué canto?</a></div></nav>
+<nav class="filtros" aria-label="Filtrar looks"><div class="wrap"><p class="f-tit">Filtrá los looks:</p><div class="opciones">{filters}</div><a class="ir-temas" href="#temas">¿Qué canto?</a>{votar_nav}</div></nav>
 <main>
 <p class="vacio wrap" hidden>No hay looks con esos filtros. Probá sacando alguno.</p>
 {chr(10).join(secciones)}
