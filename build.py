@@ -124,23 +124,19 @@ def ranking_html():
 
 n_full = sum(1 for f in registro.NOCHE if f[1] == [registro.FULL])
 setlist_html = "".join(f'<li><b>{e(f[0])}</b><span>{e(registro.quienes(f))}</span></li>' for f in registro.NOCHE)
-noche_html = f"""<section id="noche" class="noche wrap" aria-labelledby="noche-tit">
-  <header class="noche-top">
-    <h2 id="noche-tit">Así se cantaron las 40</h2>
-    <p>{len(registro.NOCHE)} temas en una noche: quién se subió más veces y todo lo que sonó, en orden.</p>
+noche_html = f"""<section id="noche" class="bloque bloque-noche" aria-labelledby="noche-tit"><div class="wrap">
+  <header class="bloque-top">
+    <p class="kicker">La noche del 9 de noviembre</p>
+    <h2 id="noche-tit">El registro (in)completo.</h2>
+    <p>{len(registro.NOCHE)} temas en una noche, en el orden en que sonaron.</p>
   </header>
-  <div class="noche-grid">
-    <div class="rank">
-      <h3>Quién cantó más</h3>
-      <ol>{ranking_html()}</ol>
-      <p class="nota">Los {n_full} temas con toda la banda no suman acá.</p>
-    </div>
-    <div class="setlist">
-      <h3>El registro completo</h3>
-      <ol>{setlist_html}</ol>
-    </div>
+  <ol class="setlist">{setlist_html}</ol>
+  <div class="rank">
+    <h3 class="sub">Quién cantó más</h3>
+    <ol>{ranking_html()}</ol>
+    <p class="nota">Los {n_full} temas con toda la banda no suman acá.</p>
   </div>
-</section>"""
+</div></section>"""
 
 
 def credito(c):
@@ -217,6 +213,7 @@ main {{ flex: 1 0 auto; }}
 .vacio[hidden] {{ display: none; }}
 
 .car {{ padding-top: clamp(30px, 4vw, 54px); }}
+.filtros + .vacio + .car {{ padding-top: clamp(22px, 3vw, 36px); }}
 .car[hidden] {{ display: none; }}
 .car-top {{ display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2px 22px; margin-bottom: clamp(12px, 1.6vw, 20px); }}
 .car-top h2 {{ margin: 0; font: 400 clamp(2.1rem, 3.8vw, 3.1rem)/1.3 var(--script); -webkit-text-stroke: .01em var(--blanco); transform: rotate(-2.5deg); transform-origin: left center; }}
@@ -257,9 +254,7 @@ main {{ flex: 1 0 auto; }}
   text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }}
 .ir-temas:hover {{ color: var(--blanco); }}
 
-.temas {{ scroll-margin-top: 70px; padding-top: clamp(44px, 6vw, 80px); }}
-.temas-top h2 {{ margin: 0; font: 400 clamp(2.1rem, 3.8vw, 3.1rem)/1.3 var(--script); -webkit-text-stroke: .01em var(--blanco); transform: rotate(-2.5deg); transform-origin: left center; }}
-.temas-top p {{ max-width: 62ch; margin: 6px 0 0; }}
+.temas {{ scroll-margin-top: 20px; }}
 .tf-filtros {{ display: grid; gap: 10px; margin: clamp(16px, 2vw, 24px) 0 clamp(14px, 1.8vw, 20px); }}
 .tf-fila {{ display: flex; align-items: center; gap: 8px 14px; }}
 .tf-tit {{ flex: none; width: 4.6em; margin: 0; font-weight: 800; font-size: .95rem; }}
@@ -288,19 +283,24 @@ main {{ flex: 1 0 auto; }}
 .sorteo b {{ color: var(--oro-claro); }}
 .pie ol.fuentes {{ columns: 2 260px; }}
 
-.noche {{ padding-top: clamp(30px, 4vw, 54px); }}
-.noche-top h2 {{ margin: 0; font: 400 clamp(2.1rem, 3.8vw, 3.1rem)/1.3 var(--script); -webkit-text-stroke: .01em var(--blanco); transform: rotate(-2.5deg); transform-origin: left center; }}
-.noche-top p {{ max-width: 62ch; margin: 6px 0 0; }}
-.noche-grid {{ display: grid; grid-template-columns: minmax(240px, 1fr) 2.4fr; gap: clamp(28px, 4vw, 64px); margin-top: clamp(18px, 2.4vw, 30px); align-items: start; }}
-.noche h3 {{ margin: 0 0 10px; font-weight: 800; font-size: 1.2rem; letter-spacing: -.01em; }}
-.noche ol {{ list-style: none; margin: 0; padding: 0; }}
-.rank li {{ display: grid; grid-template-columns: 2em 1fr auto; align-items: baseline; gap: 8px; padding: 7px 0 8px; border-top: 1px solid rgba(255, 255, 255, .18); }}
+.bloque-top {{ margin-bottom: clamp(20px, 2.6vw, 34px); }}
+.bloque-top .kicker {{ margin: 0 0 10px; color: var(--oro-claro); font-weight: 800; font-size: .82rem; letter-spacing: .16em; text-transform: uppercase; }}
+.bloque-top h2 {{ margin: 0; font-weight: 800; font-size: clamp(2.7rem, 6.4vw, 5rem); line-height: .96; letter-spacing: -.045em; }}
+.bloque-top p:not(.kicker) {{ max-width: 62ch; margin: 12px 0 0; font-size: clamp(1rem, 1.25vw, 1.08rem); }}
+.divisor {{ height: clamp(110px, 13vw, 170px); margin: clamp(40px, 5vw, 70px) 0; opacity: .55;
+  background: url("{PATRON}") center / clamp(150px, 15.5vw, 218px) repeat-x;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); }}
+.bloque-noche {{ background: rgba(23, 14, 9, .32); padding: clamp(40px, 5vw, 70px) 0 clamp(44px, 5.5vw, 76px); border-top: 1px solid rgba(236, 210, 124, .35); border-bottom: 1px solid rgba(236, 210, 124, .35); }}
+.sub {{ margin: clamp(36px, 4.5vw, 56px) 0 14px; font: 400 clamp(1.9rem, 3.2vw, 2.6rem)/1.3 var(--script); -webkit-text-stroke: .01em var(--blanco); transform: rotate(-2.5deg); transform-origin: left center; }}
+.bloque-noche ol {{ list-style: none; margin: 0; padding: 0; }}
+.rank ol {{ columns: 4 210px; column-gap: clamp(20px, 3vw, 40px); }}
+.rank li {{ break-inside: avoid; display: grid; grid-template-columns: 2em 1fr auto; align-items: baseline; gap: 8px; padding: 7px 0 8px; border-top: 1px solid rgba(255, 255, 255, .18); }}
 .rank .pos {{ color: var(--oro-claro); font-weight: 600; font-size: .9rem; font-variant-numeric: tabular-nums; }}
 .rank b {{ font-weight: 800; font-size: 1.05rem; }}
 .rank .c {{ font-size: .9rem; opacity: .82; font-variant-numeric: tabular-nums; }}
 .rank .podio b {{ color: var(--oro-claro); font-size: 1.2rem; }}
 .rank .nota {{ margin: 10px 0 0; font-size: .85rem; opacity: .8; }}
-.setlist ol {{ counter-reset: s; columns: 2 260px; column-gap: clamp(20px, 3vw, 40px); }}
+.setlist {{ counter-reset: s; columns: 3 250px; column-gap: clamp(20px, 3vw, 40px); }}
 .setlist li {{ counter-increment: s; break-inside: avoid; display: grid; grid-template-columns: 2.2em 1fr; padding: 7px 0 8px; border-top: 1px solid rgba(255, 255, 255, .18); }}
 .setlist li::before {{ content: counter(s); grid-row: span 2; color: var(--oro-claro); font-weight: 600; font-size: .86rem; font-variant-numeric: tabular-nums; padding-top: .15em; }}
 .setlist b {{ font-weight: 800; font-size: 1rem; line-height: 1.2; }}
@@ -319,9 +319,6 @@ main {{ flex: 1 0 auto; }}
 @media (max-width: 980px) {{
   .look {{ flex-basis: calc((100cqw - 2 * var(--g)) / 3); }}
   .look img {{ height: calc((100cqw - 2 * var(--g)) / 3 * 1.25); }}
-}}
-@media (max-width: 760px) {{
-  .noche-grid {{ grid-template-columns: 1fr; }}
 }}
 @media (max-width: 640px) {{
   .hero h1 {{ font-size: 13.4vw; }}
@@ -355,13 +352,23 @@ main {{ flex: 1 0 auto; }}
     <div class="ctas">{votar_hero}<a class="cta" href="#temas">¿No sabés qué cantar?<svg viewBox="0 0 14 20" aria-hidden="true"><path d="M7 1v17M1 12l6 6 6-6"/></svg></a></div>
   </div>
 </header>
-<nav class="filtros" aria-label="Filtrar looks"><div class="wrap"><p class="f-tit">Filtrá los looks:</p><div class="opciones">{filters}</div><a class="ir-temas" href="#temas">¿Qué canto?</a>{votar_nav}</div></nav>
 <main>
 {noche_html}
+<div class="divisor" aria-hidden="true"></div>
+<section id="looks" class="bloque" aria-labelledby="looks-tit">
+<header class="bloque-top wrap">
+  <p class="kicker">Para inspirarse</p>
+  <h2 id="looks-tit">Ideas de looks.</h2>
+  <p>{len(looks.L)} cantantes para armar el disfraz, del que se arma con lo que hay en casa a la producción total.</p>
+</header>
+<nav class="filtros" aria-label="Filtrar looks"><div class="wrap"><p class="f-tit">Filtrá los looks:</p><div class="opciones">{filters}</div><a class="ir-temas" href="#temas">¿Qué canto?</a>{votar_nav}</div></nav>
 <p class="vacio wrap" hidden>No hay looks con esos filtros. Probá sacando alguno.</p>
 {chr(10).join(secciones)}
-<section id="temas" class="temas wrap" aria-labelledby="temas-tit">
-  <header class="temas-top">
+</section>
+<div class="divisor" aria-hidden="true"></div>
+<section id="temas" class="bloque temas wrap" aria-labelledby="temas-tit">
+  <header class="bloque-top">
+    <p class="kicker">Para animarse</p>
     <h2 id="temas-tit">¿No sabés qué cantar?</h2>
     <p>{total_temas} temas que nunca fallan en un karaoke, sacados de listas de los más cantados, con muchos de acá. Combiná los filtros como quieras.</p>
   </header>
