@@ -10,7 +10,7 @@ NOCHE = [
 ("Sweet Dreams", ["Crista"]),
 ("Hay que venir al sur", ["Maca"]),
 ("You Shook Me All Night Long", ["Ale", "Salva"]),
-("Maldita noche", ["Agus", "las banana"]),
+("Maldita noche", ["Agus"]),
 ("Bachata rosa", ["Maru", "Salva"]),
 ("Lo mejor del amor", ["Agus", "Martín"]),
 ("Dejaría todo", ["Ale", "Salva"]),
@@ -44,7 +44,7 @@ NOCHE = [
 ("Una calle nos separa", ["Agus", "Martín", "Nati"]),
 ("Canción de despedida", [FULL]),
 ]
-NO_PERSONAS = {FULL, "las banana"}  # aparecen en el registro pero no son una persona del ranking
+NO_PERSONAS = {FULL}  # aparece en el registro pero no es una persona del ranking
 
 
 def quienes(fila):
