@@ -194,6 +194,10 @@ main {{ flex: 1 0 auto; }}
   background: url("{PATRON}") right top / clamp(150px, 15.5vw, 218px) repeat;
   -webkit-mask-image: linear-gradient(90deg, transparent 52%, #000 88%); mask-image: linear-gradient(90deg, transparent 52%, #000 88%); }}
 .hero .wrap {{ position: relative; }}
+.hero-foto {{ position: absolute; top: 0; right: 0; width: min(44%, 640px); height: 100%; object-fit: cover; object-position: center 45%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, .6) 22%, #000 48%); mask-image: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, .6) 22%, #000 48%); }}
+.hero .bajada {{ max-width: min(66ch, 54%); }}
+@media (min-width: 641px) {{ .hero::before {{ display: none; }} }}
 .hero h1 {{ margin: 0; font-weight: 800; font-size: clamp(3rem, 8.2vw, 6.9rem); line-height: 1; letter-spacing: -.04em; }}
 .dress {{ margin: clamp(12px, 1.4vw, 20px) 0 0; font-weight: 600; font-size: clamp(1.15rem, 1.9vw, 1.5rem); line-height: 1.2; }}
 .bajada {{ max-width: 66ch; text-wrap: balance; margin: 4px 0 0; font-size: clamp(1rem, 1.25vw, 1.08rem); }}
@@ -329,6 +333,10 @@ main {{ flex: 1 0 auto; }}
 @media (max-width: 640px) {{
   .hero h1 {{ font-size: 13.4vw; }}
   .hero::before {{ opacity: .3; -webkit-mask-image: none; mask-image: none; }}
+  .hero {{ padding-top: 0; }}
+  .hero-foto {{ position: relative; display: block; width: 100%; height: 240px; margin-bottom: -40px; object-position: center 40%;
+    -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent); mask-image: linear-gradient(180deg, #000 55%, transparent); }}
+  .hero .bajada {{ max-width: none; }}
   .filtros .wrap {{ flex-wrap: wrap; padding-top: 11px; padding-bottom: 11px; padding-right: 0; gap: 7px; }}
   .f-tit {{ font-size: .95rem; }}
   .opciones {{ flex-wrap: nowrap; width: 100%; overflow-x: auto; scrollbar-width: none; padding-right: 20px; }}
@@ -351,6 +359,7 @@ main {{ flex: 1 0 auto; }}
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="estrella" viewBox="-43 -43 86 86"><path d="{ESTRELLA}"/></symbol></svg>
 <header class="hero">
+  <img class="hero-foto" src="img/fiesta.jpg" alt="La fiesta en pleno karaoke" width="1388" height="1400">
   <div class="wrap">
     <h1>{e(TITULO)}.</h1>
     <p class="dress">Y al final fueron {len(registro.NOCHE)}.</p>

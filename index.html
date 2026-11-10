@@ -36,6 +36,10 @@ main { flex: 1 0 auto; }
   background: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%22-102 -102 204 204%22%3E%3Cdefs%3E%3Cmask id=%22c%22 maskUnits=%22userSpaceOnUse%22 x=%22-102%22 y=%22-102%22 width=%22204%22 height=%22204%22%3E%3Crect x=%22-102%22 y=%22-102%22 width=%22204%22 height=%22204%22 fill=%22%23fff%22/%3E%3Cg fill=%22%23000%22%3E%3Crect x=%22-4.2%22 y=%22-102%22 width=%228.4%22 height=%22204%22/%3E%3Crect x=%22-102%22 y=%22-4.2%22 width=%22204%22 height=%228.4%22/%3E%3C/g%3E%3C/mask%3E%3Cmask id=%22l%22 maskUnits=%22userSpaceOnUse%22 x=%22-102%22 y=%22-102%22 width=%22204%22 height=%22204%22%3E%3Ccircle cx=%22-72%22 cy=%22-72%22 r=%2264%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22-72%22 cy=%2272%22 r=%2264%22 fill=%22%23fff%22/%3E%3Ccircle cx=%2272%22 cy=%22-72%22 r=%2264%22 fill=%22%23fff%22/%3E%3Ccircle cx=%2272%22 cy=%2272%22 r=%2264%22 fill=%22%23fff%22/%3E%3Cg fill=%22%23000%22%3E%3Crect x=%22-4.2%22 y=%22-102%22 width=%228.4%22 height=%22204%22/%3E%3Crect x=%22-102%22 y=%22-4.2%22 width=%22204%22 height=%228.4%22/%3E%3C/g%3E%3C/mask%3E%3C/defs%3E%3Cg fill=%22none%22 stroke=%22%23c6a84f%22 stroke-width=%224.3%22%3E%3Cg mask=%22url%28%23c%29%22%3E%3Ccircle r=%2296%22/%3E%3Ccircle r=%2287%22/%3E%3Ccircle r=%2278%22/%3E%3Ccircle r=%2269%22/%3E%3Ccircle r=%2260%22/%3E%3C/g%3E%3Cg mask=%22url%28%23l%29%22%3E%3Ccircle r=%2251%22/%3E%3Ccircle r=%2242%22/%3E%3C/g%3E%3C/g%3E%3Cpath fill=%22%23c6a84f%22 d=%22M0-43A43 43 0 0 0 43 0 43 43 0 0 0 0 43 43 43 0 0 0-43 0 43 43 0 0 0 0-43Z%22/%3E%3C/svg%3E") right top / clamp(150px, 15.5vw, 218px) repeat;
   -webkit-mask-image: linear-gradient(90deg, transparent 52%, #000 88%); mask-image: linear-gradient(90deg, transparent 52%, #000 88%); }
 .hero .wrap { position: relative; }
+.hero-foto { position: absolute; top: 0; right: 0; width: min(44%, 640px); height: 100%; object-fit: cover; object-position: center 45%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, .6) 22%, #000 48%); mask-image: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, .6) 22%, #000 48%); }
+.hero .bajada { max-width: min(66ch, 54%); }
+@media (min-width: 641px) { .hero::before { display: none; } }
 .hero h1 { margin: 0; font-weight: 800; font-size: clamp(3rem, 8.2vw, 6.9rem); line-height: 1; letter-spacing: -.04em; }
 .dress { margin: clamp(12px, 1.4vw, 20px) 0 0; font-weight: 600; font-size: clamp(1.15rem, 1.9vw, 1.5rem); line-height: 1.2; }
 .bajada { max-width: 66ch; text-wrap: balance; margin: 4px 0 0; font-size: clamp(1rem, 1.25vw, 1.08rem); }
@@ -171,6 +175,10 @@ main { flex: 1 0 auto; }
 @media (max-width: 640px) {
   .hero h1 { font-size: 13.4vw; }
   .hero::before { opacity: .3; -webkit-mask-image: none; mask-image: none; }
+  .hero { padding-top: 0; }
+  .hero-foto { position: relative; display: block; width: 100%; height: 240px; margin-bottom: -40px; object-position: center 40%;
+    -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent); mask-image: linear-gradient(180deg, #000 55%, transparent); }
+  .hero .bajada { max-width: none; }
   .filtros .wrap { flex-wrap: wrap; padding-top: 11px; padding-bottom: 11px; padding-right: 0; gap: 7px; }
   .f-tit { font-size: .95rem; }
   .opciones { flex-wrap: nowrap; width: 100%; overflow-x: auto; scrollbar-width: none; padding-right: 20px; }
@@ -193,6 +201,7 @@ main { flex: 1 0 auto; }
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="estrella" viewBox="-43 -43 86 86"><path d="M0-43A43 43 0 0 0 43 0 43 43 0 0 0 0 43 43 43 0 0 0-43 0 43 43 0 0 0 0-43Z"/></symbol></svg>
 <header class="hero">
+  <img class="hero-foto" src="img/fiesta.jpg" alt="La fiesta en pleno karaoke" width="1388" height="1400">
   <div class="wrap">
     <h1>Te canto las 40.</h1>
     <p class="dress">Y al final fueron 41.</p>
