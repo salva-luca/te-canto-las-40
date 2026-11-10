@@ -126,6 +126,24 @@ main { flex: 1 0 auto; }
 .sorteo b { color: var(--oro-claro); }
 .pie ol.fuentes { columns: 2 260px; }
 
+.noche { padding-top: clamp(30px, 4vw, 54px); }
+.noche-top h2 { margin: 0; font: 400 clamp(2.1rem, 3.8vw, 3.1rem)/1.3 var(--script); -webkit-text-stroke: .01em var(--blanco); transform: rotate(-2.5deg); transform-origin: left center; }
+.noche-top p { max-width: 62ch; margin: 6px 0 0; }
+.noche-grid { display: grid; grid-template-columns: minmax(240px, 1fr) 2.4fr; gap: clamp(28px, 4vw, 64px); margin-top: clamp(18px, 2.4vw, 30px); align-items: start; }
+.noche h3 { margin: 0 0 10px; font-weight: 800; font-size: 1.2rem; letter-spacing: -.01em; }
+.noche ol { list-style: none; margin: 0; padding: 0; }
+.rank li { display: grid; grid-template-columns: 2em 1fr auto; align-items: baseline; gap: 8px; padding: 7px 0 8px; border-top: 1px solid rgba(255, 255, 255, .18); }
+.rank .pos { color: var(--oro-claro); font-weight: 600; font-size: .9rem; font-variant-numeric: tabular-nums; }
+.rank b { font-weight: 800; font-size: 1.05rem; }
+.rank .c { font-size: .9rem; opacity: .82; font-variant-numeric: tabular-nums; }
+.rank .podio b { color: var(--oro-claro); font-size: 1.2rem; }
+.rank .nota { margin: 10px 0 0; font-size: .85rem; opacity: .8; }
+.setlist ol { counter-reset: s; columns: 2 260px; column-gap: clamp(20px, 3vw, 40px); }
+.setlist li { counter-increment: s; break-inside: avoid; display: grid; grid-template-columns: 2.2em 1fr; padding: 7px 0 8px; border-top: 1px solid rgba(255, 255, 255, .18); }
+.setlist li::before { content: counter(s); grid-row: span 2; color: var(--oro-claro); font-weight: 600; font-size: .86rem; font-variant-numeric: tabular-nums; padding-top: .15em; }
+.setlist b { font-weight: 800; font-size: 1rem; line-height: 1.2; }
+.setlist span { font-size: .88rem; opacity: .82; }
+
 .pie { position: relative; margin-top: clamp(52px, 7vw, 90px); font-size: .86rem; overflow: hidden; }
 .pie .wrap { position: relative; z-index: 1; padding-bottom: clamp(70px, 9vw, 120px); }
 .pie::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: clamp(110px, 13vw, 170px); opacity: .5;
@@ -139,6 +157,9 @@ main { flex: 1 0 auto; }
 @media (max-width: 980px) {
   .look { flex-basis: calc((100cqw - 2 * var(--g)) / 3); }
   .look img { height: calc((100cqw - 2 * var(--g)) / 3 * 1.25); }
+}
+@media (max-width: 760px) {
+  .noche-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   .hero h1 { font-size: 13.4vw; }
@@ -169,11 +190,28 @@ main { flex: 1 0 auto; }
     <h1>Te canto las 40.</h1>
     <p class="dress">Dresscode: cantante.</p>
     <p class="bajada">¿No sabés de quién ir? Acá hay 76 ideas para armar el look y subirte a cantar su tema.</p>
-    <div class="ctas"><a class="cta" href="#temas">¿No sabés qué cantar?<svg viewBox="0 0 14 20" aria-hidden="true"><path d="M7 1v17M1 12l6 6 6-6"/></svg></a></div>
+    <div class="ctas"><a class="cta cta-votar" href="https://docs.google.com/forms/d/e/1FAIpQLSfm4kTeIla4ivfnao4KStZRraC-1g7lKOuU_QkIVsyZbKxxtA/viewform" target="_blank" rel="noopener">Votá a los ganadores</a><a class="cta" href="#temas">¿No sabés qué cantar?<svg viewBox="0 0 14 20" aria-hidden="true"><path d="M7 1v17M1 12l6 6 6-6"/></svg></a></div>
   </div>
 </header>
-<nav class="filtros" aria-label="Filtrar looks"><div class="wrap"><p class="f-tit">Filtrá los looks:</p><div class="opciones"><button type="button" class="f on" data-grupo="todos" aria-pressed="true">Todos</button><span class="grupo"><button type="button" class="f" data-grupo="region" data-v="int" aria-pressed="false">Internacionales</button><button type="button" class="f" data-grupo="region" data-v="arg" aria-pressed="false">Nacionales</button></span><span class="grupo"><button type="button" class="f" data-grupo="nivel" data-v="1" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</button><button type="button" class="f" data-grupo="nivel" data-v="2" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</button><button type="button" class="f" data-grupo="nivel" data-v="3" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Producción total</button></span></div><a class="ir-temas" href="#temas">¿Qué canto?</a></div></nav>
+<nav class="filtros" aria-label="Filtrar looks"><div class="wrap"><p class="f-tit">Filtrá los looks:</p><div class="opciones"><button type="button" class="f on" data-grupo="todos" aria-pressed="true">Todos</button><span class="grupo"><button type="button" class="f" data-grupo="region" data-v="int" aria-pressed="false">Internacionales</button><button type="button" class="f" data-grupo="region" data-v="arg" aria-pressed="false">Nacionales</button></span><span class="grupo"><button type="button" class="f" data-grupo="nivel" data-v="1" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</button><button type="button" class="f" data-grupo="nivel" data-v="2" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</button><button type="button" class="f" data-grupo="nivel" data-v="3" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Producción total</button></span></div><a class="ir-temas" href="#temas">¿Qué canto?</a><a class="ir-votar" href="https://docs.google.com/forms/d/e/1FAIpQLSfm4kTeIla4ivfnao4KStZRraC-1g7lKOuU_QkIVsyZbKxxtA/viewform" target="_blank" rel="noopener">Votá</a></div></nav>
 <main>
+<section id="noche" class="noche wrap" aria-labelledby="noche-tit">
+  <header class="noche-top">
+    <h2 id="noche-tit">Así se cantaron las 40</h2>
+    <p>41 temas en una noche: quién se subió más veces y todo lo que sonó, en orden.</p>
+  </header>
+  <div class="noche-grid">
+    <div class="rank">
+      <h3>Quién cantó más</h3>
+      <ol><li class="podio"><span class="pos">1</span><b>Maru</b><span class="c">9 temas</span></li><li class="podio"><span class="pos">2</span><b>Salva</b><span class="c">8 temas</span></li><li class="podio"><span class="pos">3</span><b>Agus</b><span class="c">7 temas</span></li><li class="podio"><span class="pos">3</span><b>Crista</b><span class="c">7 temas</span></li><li><span class="pos">5</span><b>Ale</b><span class="c">6 temas</span></li><li><span class="pos">5</span><b>Lu</b><span class="c">6 temas</span></li><li><span class="pos">5</span><b>Maca</b><span class="c">6 temas</span></li><li><span class="pos">5</span><b>Martín</b><span class="c">6 temas</span></li><li><span class="pos">9</span><b>Nati</b><span class="c">5 temas</span></li><li><span class="pos">10</span><b>Sofi</b><span class="c">4 temas</span></li><li><span class="pos">11</span><b>Iara</b><span class="c">3 temas</span></li><li><span class="pos">11</span><b>Javi</b><span class="c">3 temas</span></li><li><span class="pos">13</span><b>Fede Max</b><span class="c">2 temas</span></li><li><span class="pos">14</span><b>Ayerbe</b><span class="c">1 tema</span></li><li><span class="pos">14</span><b>Ayma</b><span class="c">1 tema</span></li><li><span class="pos">14</span><b>Felipe</b><span class="c">1 tema</span></li><li><span class="pos">14</span><b>Gigi</b><span class="c">1 tema</span></li><li><span class="pos">14</span><b>Guille</b><span class="c">1 tema</span></li><li><span class="pos">14</span><b>Julie</b><span class="c">1 tema</span></li><li><span class="pos">14</span><b>Manu</b><span class="c">1 tema</span></li><li><span class="pos">14</span><b>Mili</b><span class="c">1 tema</span></li><li><span class="pos">14</span><b>Pato</b><span class="c">1 tema</span></li><li><span class="pos">14</span><b>Santi</b><span class="c">1 tema</span></li><li><span class="pos">14</span><b>Simona</b><span class="c">1 tema</span></li></ol>
+      <p class="nota">Los 6 temas con toda la banda no suman acá.</p>
+    </div>
+    <div class="setlist">
+      <h3>El registro completo</h3>
+      <ol><li><b>Like a Prayer</b><span>Maru y Agus</span></li><li><b>Crazy Little Thing Called Love</b><span>Ale</span></li><li><b>Un amor (Lali)</b><span>Felipe</span></li><li><b>Porque yo te amo (Sandro)</b><span>Agus</span></li><li><b>Todo sigue igual</b><span>Los dos pitis (Martín y Sofi)</span></li><li><b>Sweet Dreams</b><span>Crista</span></li><li><b>Hay que venir al sur</b><span>Maca</span></li><li><b>You Shook Me All Night Long</b><span>Ale y Salva</span></li><li><b>Maldita noche</b><span>Agus y las banana</span></li><li><b>Bachata rosa</b><span>Maru y Salva</span></li><li><b>Lo mejor del amor</b><span>Agus y Martín</span></li><li><b>Dejaría todo</b><span>Ale y Salva</span></li><li><b>Just a Girl</b><span>Crista y Lu</span></li><li><b>No podrás</b><span>Crista, Salva y Agus</span></li><li><b>Por qué te vas</b><span>Ayma, Guille, Julie y Simona</span></li><li><b>No te creas tan importante</b><span>Maru, Nati y Mili</span></li><li><b>Crazy in Love</b><span>Maca y Crista</span></li><li><b>Imán</b><span>Maru y Sofi</span></li><li><b>Tiny Dancer</b><span>Iara, Javi y Fede Max</span></li><li><b>Fuiste</b><span>Salva, Lu y Maca</span></li><li><b>Satisfaction</b><span>Iara, Ale y Fede Max</span></li><li><b>Toxic</b><span>Maca, Crista y Lu</span></li><li><b>Fuego de noche</b><span>Nati, Ale, Salva y Martín</span></li><li><b>Isla</b><span>Ayerbe y Sofi</span></li><li><b>Gangsta&#x27;s Paradise</b><span>Lu, Maru y Javi</span></li><li><b>Kiss from a Rose</b><span>Maru, Lu y Javi</span></li><li><b>Al siguiente nivel</b><span>Maca, Santi y Sofi</span></li><li><b>Dos días en la vida</b><span>Full band</span></li><li><b>Por amarte así</b><span>Ale, Nati y Salva</span></li><li><b>Estoy aquí</b><span>Maru, Crista y Nati</span></li><li><b>Piel morena</b><span>Maca y Crista</span></li><li><b>Total Eclipse of the Heart</b><span>Full band</span></li><li><b>La incondicional</b><span>Full band</span></li><li><b>Amor (Cristian Castro)</b><span>Full band</span></li><li><b>Obsesionario en la mayor</b><span>Gigi, Pato, Manu y Martín</span></li><li><b>Ain&#x27;t Over &#x27;til It&#x27;s Over</b><span>Iara y Maru</span></li><li><b>Sin disfraz</b><span>Lu, Salva y Maru</span></li><li><b>Pronta entrega</b><span>Agus y Martín</span></li><li><b>It Must Have Been Love</b><span>Full band</span></li><li><b>Una calle nos separa</b><span>Agus, Martín y Nati</span></li><li><b>Canción de despedida</b><span>Full band</span></li></ol>
+    </div>
+  </div>
+</section>
 <p class="vacio wrap" hidden>No hay looks con esos filtros. Probá sacando alguno.</p>
 <section class="car wrap" data-region="int" aria-label="Internacionales">
   <header class="car-top">

@@ -6,13 +6,14 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import looks
 import temas
+import registro
 
 # El nombre de la fiesta vive solo aca: cambiarlo y volver a correr el script.
 TITULO = "Te canto las 40"
 
 # Votación (Google Forms). Pasar a True cuando se abre la votación, correr build.py y republicar.
 VOTACION_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfm4kTeIla4ivfnao4KStZRraC-1g7lKOuU_QkIVsyZbKxxtA/viewform"
-VOTACION_ABIERTA = False
+VOTACION_ABIERTA = True
 
 NIVELES = {1: "Con lo que tenés en casa", 2: "Comprando un par de cosas", 3: "Producción total"}
 REGIONES = {"int": "Internacionales", "arg": "Nacionales"}
@@ -109,6 +110,37 @@ fuentes_html = "\n".join(f'<li><a href="{e(u)}">{e(t)}</a></li>' for t, u in tem
 
 votar_hero = f'<a class="cta cta-votar" href="{e(VOTACION_URL)}" target="_blank" rel="noopener">Votá a los ganadores</a>' if VOTACION_ABIERTA else ""
 votar_nav = f'<a class="ir-votar" href="{e(VOTACION_URL)}" target="_blank" rel="noopener">Votá</a>' if VOTACION_ABIERTA else ""
+
+
+def ranking_html():
+    filas, previo, pos = [], None, 0
+    for i, (n, c) in enumerate(registro.ranking(), 1):
+        if c != previo:
+            pos, previo = i, c
+        podio = ' class="podio"' if pos <= 3 else ""
+        filas.append(f'<li{podio}><span class="pos">{pos}</span><b>{e(n)}</b><span class="c">{c} {"tema" if c == 1 else "temas"}</span></li>')
+    return "".join(filas)
+
+
+n_full = sum(1 for f in registro.NOCHE if f[1] == [registro.FULL])
+setlist_html = "".join(f'<li><b>{e(f[0])}</b><span>{e(registro.quienes(f))}</span></li>' for f in registro.NOCHE)
+noche_html = f"""<section id="noche" class="noche wrap" aria-labelledby="noche-tit">
+  <header class="noche-top">
+    <h2 id="noche-tit">Así se cantaron las 40</h2>
+    <p>{len(registro.NOCHE)} temas en una noche: quién se subió más veces y todo lo que sonó, en orden.</p>
+  </header>
+  <div class="noche-grid">
+    <div class="rank">
+      <h3>Quién cantó más</h3>
+      <ol>{ranking_html()}</ol>
+      <p class="nota">Los {n_full} temas con toda la banda no suman acá.</p>
+    </div>
+    <div class="setlist">
+      <h3>El registro completo</h3>
+      <ol>{setlist_html}</ol>
+    </div>
+  </div>
+</section>"""
 
 
 def credito(c):
@@ -256,6 +288,24 @@ main {{ flex: 1 0 auto; }}
 .sorteo b {{ color: var(--oro-claro); }}
 .pie ol.fuentes {{ columns: 2 260px; }}
 
+.noche {{ padding-top: clamp(30px, 4vw, 54px); }}
+.noche-top h2 {{ margin: 0; font: 400 clamp(2.1rem, 3.8vw, 3.1rem)/1.3 var(--script); -webkit-text-stroke: .01em var(--blanco); transform: rotate(-2.5deg); transform-origin: left center; }}
+.noche-top p {{ max-width: 62ch; margin: 6px 0 0; }}
+.noche-grid {{ display: grid; grid-template-columns: minmax(240px, 1fr) 2.4fr; gap: clamp(28px, 4vw, 64px); margin-top: clamp(18px, 2.4vw, 30px); align-items: start; }}
+.noche h3 {{ margin: 0 0 10px; font-weight: 800; font-size: 1.2rem; letter-spacing: -.01em; }}
+.noche ol {{ list-style: none; margin: 0; padding: 0; }}
+.rank li {{ display: grid; grid-template-columns: 2em 1fr auto; align-items: baseline; gap: 8px; padding: 7px 0 8px; border-top: 1px solid rgba(255, 255, 255, .18); }}
+.rank .pos {{ color: var(--oro-claro); font-weight: 600; font-size: .9rem; font-variant-numeric: tabular-nums; }}
+.rank b {{ font-weight: 800; font-size: 1.05rem; }}
+.rank .c {{ font-size: .9rem; opacity: .82; font-variant-numeric: tabular-nums; }}
+.rank .podio b {{ color: var(--oro-claro); font-size: 1.2rem; }}
+.rank .nota {{ margin: 10px 0 0; font-size: .85rem; opacity: .8; }}
+.setlist ol {{ counter-reset: s; columns: 2 260px; column-gap: clamp(20px, 3vw, 40px); }}
+.setlist li {{ counter-increment: s; break-inside: avoid; display: grid; grid-template-columns: 2.2em 1fr; padding: 7px 0 8px; border-top: 1px solid rgba(255, 255, 255, .18); }}
+.setlist li::before {{ content: counter(s); grid-row: span 2; color: var(--oro-claro); font-weight: 600; font-size: .86rem; font-variant-numeric: tabular-nums; padding-top: .15em; }}
+.setlist b {{ font-weight: 800; font-size: 1rem; line-height: 1.2; }}
+.setlist span {{ font-size: .88rem; opacity: .82; }}
+
 .pie {{ position: relative; margin-top: clamp(52px, 7vw, 90px); font-size: .86rem; overflow: hidden; }}
 .pie .wrap {{ position: relative; z-index: 1; padding-bottom: clamp(70px, 9vw, 120px); }}
 .pie::after {{ content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: clamp(110px, 13vw, 170px); opacity: .5;
@@ -269,6 +319,9 @@ main {{ flex: 1 0 auto; }}
 @media (max-width: 980px) {{
   .look {{ flex-basis: calc((100cqw - 2 * var(--g)) / 3); }}
   .look img {{ height: calc((100cqw - 2 * var(--g)) / 3 * 1.25); }}
+}}
+@media (max-width: 760px) {{
+  .noche-grid {{ grid-template-columns: 1fr; }}
 }}
 @media (max-width: 640px) {{
   .hero h1 {{ font-size: 13.4vw; }}
@@ -304,6 +357,7 @@ main {{ flex: 1 0 auto; }}
 </header>
 <nav class="filtros" aria-label="Filtrar looks"><div class="wrap"><p class="f-tit">Filtrá los looks:</p><div class="opciones">{filters}</div><a class="ir-temas" href="#temas">¿Qué canto?</a>{votar_nav}</div></nav>
 <main>
+{noche_html}
 <p class="vacio wrap" hidden>No hay looks con esos filtros. Probá sacando alguno.</p>
 {chr(10).join(secciones)}
 <section id="temas" class="temas wrap" aria-labelledby="temas-tit">
