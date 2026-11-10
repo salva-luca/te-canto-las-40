@@ -107,7 +107,7 @@ main { flex: 1 0 auto; }
 .ir-temas:hover { color: var(--blanco); }
 
 .temas { scroll-margin-top: 20px; }
-.tf-filtros { display: grid; gap: 10px; margin: clamp(16px, 2vw, 24px) 0 clamp(14px, 1.8vw, 20px); }
+.tf-filtros { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; margin: clamp(16px, 2vw, 24px) 0 clamp(14px, 1.8vw, 20px); }
 .tf-fila { display: flex; align-items: center; gap: 8px 14px; }
 .tf-tit { flex: none; width: 4.6em; margin: 0; font-weight: 800; font-size: .95rem; }
 .tf-ops { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -190,7 +190,7 @@ main { flex: 1 0 auto; }
   .opciones { order: 2; }
   .tf-fila { flex-wrap: wrap; gap: 6px; margin-right: -20px; }
   .tf-tit { width: auto; font-size: .9rem; }
-  .tf-ops { flex-wrap: nowrap; width: 100%; overflow-x: auto; scrollbar-width: none; padding-right: 20px; }
+  .tf-ops { flex-wrap: nowrap; flex: 1 1 100%; min-width: 0; width: 100%; overflow-x: auto; scrollbar-width: none; padding-right: 20px; }
   .tf-ops::-webkit-scrollbar { display: none; }
   .tf { flex: none; }
   .look { flex-basis: 74cqw; }
