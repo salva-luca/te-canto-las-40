@@ -44,6 +44,14 @@ NOCHE = [
 ("Una calle nos separa", ["Agus", "Martín", "Nati"]),
 ("Canción de despedida", [FULL]),
 ]
+# De quién fue disfrazado cada uno (para la votación).
+LOOKS = {
+    "Ale": "Freddie Mercury", "Ayerbe": "Brit Rock", "Ayma": "Banda nórdica", "Crista": "Annie Lennox",
+    "Guille": "Banda nórdica", "Iara": "Elton John", "Javi": "John Frusciante", "Julie": "Banda nórdica",
+    "Lu": "Gwen Stefani", "Maca": "Raffaella Carrà", "Manu": "Leo Mattioli", "Martín": "Pity Álvarez",
+    "Maru": "Madonna", "Mili": "Madonna", "Nati": "Baby Spice", "Salva": "Angus Young",
+    "Santi": "Mac DeMarco", "Simona": "Banda nórdica", "Sofi": "Pity judicializado",
+}
 NO_PERSONAS = {FULL}  # aparece en el registro pero no es una persona del ranking
 
 
