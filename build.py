@@ -153,12 +153,19 @@ def podio(cat, puestos):
     return f'<article class="podio-cat"><h3><small>Mejor</small>{e(nombre_cat[0].upper() + nombre_cat[1:])}</h3><ol>{filas}</ol></article>'
 
 
+figuras_html = "".join(
+    f'<article class="figura {clase}"><span class="medalla">{i}</span><h4>{e(n)}</h4><p class="look-de">{e(look)}</p><p>{e(txt)}</p></article>'
+    for i, ((clase, _), (n, look, txt)) in enumerate(zip(MEDALLAS, resultados.FIGURAS), 1)
+)
 ganadores_html = f"""<section id="ganadores" class="bloque ganadores wrap" aria-labelledby="ganadores-tit">
   <header class="bloque-top">
     <p class="kicker">La votación</p>
     <h2 id="ganadores-tit">El medallero.</h2>
-    <p>Votaron {resultados.VOTANTES} personas. Oro, plata y bronce en cada categoría.</p>
+    <p>Votaron {resultados.VOTANTES} personas. Las tres figuras de la noche y el podio de cada categoría.</p>
   </header>
+  <h3 class="sub sub-primero">Las figuras de la noche</h3>
+  <div class="figuras">{figuras_html}</div>
+  <h3 class="sub">Por categoría</h3>
   <div class="podios">{"".join(podio(c, p) for c, p in resultados.MEDALLERO)}</div>
 </section>"""
 
@@ -341,6 +348,18 @@ main {{ flex: 1 0 auto; }}
 .setlist b {{ font-weight: 800; font-size: 1rem; line-height: 1.2; }}
 .setlist span {{ font-size: .88rem; opacity: .82; }}
 
+.sub-primero {{ margin-top: 0; }}
+.figuras {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: clamp(14px, 1.8vw, 22px); }}
+.figura {{ position: relative; padding: clamp(20px, 2.2vw, 28px); border-radius: 22px; background: rgba(23, 14, 9, .34); border: 1px solid rgba(255, 255, 255, .22); }}
+.figura.oro {{ border: 2px solid var(--oro-claro); background: linear-gradient(160deg, rgba(236, 210, 124, .2), rgba(23, 14, 9, .38) 60%); }}
+.figura .medalla {{ width: 46px; height: 46px; font-size: 1.15rem; margin-bottom: 14px; }}
+.figura.oro .medalla {{ width: 56px; height: 56px; font-size: 1.4rem; }}
+.figura h4 {{ margin: 0; font-weight: 800; font-size: clamp(1.9rem, 3vw, 2.5rem); line-height: 1; letter-spacing: -.035em; }}
+.figura.oro h4 {{ color: var(--oro-claro); }}
+.figura .look-de {{ margin: 4px 0 12px; font-weight: 600; opacity: .85; }}
+.figura p:last-child {{ margin: 0; line-height: 1.4; }}
+.figura.plata .medalla {{ background: radial-gradient(circle at 35% 30%, #ffffff, #d4d9dc 45%, #8e979c); }}
+.figura.bronce .medalla {{ background: radial-gradient(circle at 35% 30%, #f6d2b0, #cf8f5e 45%, #8c5230); }}
 .ganadores {{ scroll-margin-top: 20px; padding-top: clamp(40px, 5vw, 70px); }}
 .podios {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: clamp(14px, 1.8vw, 22px); }}
 .podio-cat {{ padding: clamp(18px, 2vw, 24px); border: 1px solid rgba(236, 210, 124, .45); border-radius: 18px; background: rgba(23, 14, 9, .28); }}

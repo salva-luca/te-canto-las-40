@@ -29,3 +29,11 @@ MEDALLERO = [
     ("Sweet Dreams", "Crista"),
 ]),
 ]
+
+# Las figuras de la noche: suma de votos de cada persona en todas las categorías,
+# pesando más los votos propios que los compartidos. (nombre, look, texto)
+FIGURAS = [
+("Maru", "Madonna", "La cumpleañera arrasó: fue la más votada de la noche, se llevó dos oros y es la que más temas cantó. Reina de su propia fiesta."),
+("Ale", "Freddie Mercury", "Mejor cantante y con medalla en las cinco categorías. Nadie fue tan constante como su Freddie."),
+("Crista", "Annie Lennox", "Imbatible en solitario: con Sweet Dreams ganó Mejor show y con su Annie Lennox, Mejor personificación."),
+]

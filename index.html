@@ -159,6 +159,18 @@ main { flex: 1 0 auto; }
 .setlist b { font-weight: 800; font-size: 1rem; line-height: 1.2; }
 .setlist span { font-size: .88rem; opacity: .82; }
 
+.sub-primero { margin-top: 0; }
+.figuras { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: clamp(14px, 1.8vw, 22px); }
+.figura { position: relative; padding: clamp(20px, 2.2vw, 28px); border-radius: 22px; background: rgba(23, 14, 9, .34); border: 1px solid rgba(255, 255, 255, .22); }
+.figura.oro { border: 2px solid var(--oro-claro); background: linear-gradient(160deg, rgba(236, 210, 124, .2), rgba(23, 14, 9, .38) 60%); }
+.figura .medalla { width: 46px; height: 46px; font-size: 1.15rem; margin-bottom: 14px; }
+.figura.oro .medalla { width: 56px; height: 56px; font-size: 1.4rem; }
+.figura h4 { margin: 0; font-weight: 800; font-size: clamp(1.9rem, 3vw, 2.5rem); line-height: 1; letter-spacing: -.035em; }
+.figura.oro h4 { color: var(--oro-claro); }
+.figura .look-de { margin: 4px 0 12px; font-weight: 600; opacity: .85; }
+.figura p:last-child { margin: 0; line-height: 1.4; }
+.figura.plata .medalla { background: radial-gradient(circle at 35% 30%, #ffffff, #d4d9dc 45%, #8e979c); }
+.figura.bronce .medalla { background: radial-gradient(circle at 35% 30%, #f6d2b0, #cf8f5e 45%, #8c5230); }
 .ganadores { scroll-margin-top: 20px; padding-top: clamp(40px, 5vw, 70px); }
 .podios { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: clamp(14px, 1.8vw, 22px); }
 .podio-cat { padding: clamp(18px, 2vw, 24px); border: 1px solid rgba(236, 210, 124, .45); border-radius: 18px; background: rgba(23, 14, 9, .28); }
@@ -238,8 +250,11 @@ main { flex: 1 0 auto; }
   <header class="bloque-top">
     <p class="kicker">La votación</p>
     <h2 id="ganadores-tit">El medallero.</h2>
-    <p>Votaron 23 personas. Oro, plata y bronce en cada categoría.</p>
+    <p>Votaron 23 personas. Las tres figuras de la noche y el podio de cada categoría.</p>
   </header>
+  <h3 class="sub sub-primero">Las figuras de la noche</h3>
+  <div class="figuras"><article class="figura oro"><span class="medalla">1</span><h4>Maru</h4><p class="look-de">Madonna</p><p>La cumpleañera arrasó: fue la más votada de la noche, se llevó dos oros y es la que más temas cantó. Reina de su propia fiesta.</p></article><article class="figura plata"><span class="medalla">2</span><h4>Ale</h4><p class="look-de">Freddie Mercury</p><p>Mejor cantante y con medalla en las cinco categorías. Nadie fue tan constante como su Freddie.</p></article><article class="figura bronce"><span class="medalla">3</span><h4>Crista</h4><p class="look-de">Annie Lennox</p><p>Imbatible en solitario: con Sweet Dreams ganó Mejor show y con su Annie Lennox, Mejor personificación.</p></article></div>
+  <h3 class="sub">Por categoría</h3>
   <div class="podios"><article class="podio-cat"><h3><small>Mejor</small>Cantante</h3><ol><li class="oro"><span class="medalla" aria-label="Oro">1</span><span class="quien"><b>Ale</b><span>Freddie Mercury</span></span></li><li class="plata"><span class="medalla" aria-label="Plata">2</span><span class="quien"><b>Maru</b><span>Madonna</span></span></li><li class="bronce"><span class="medalla" aria-label="Bronce">3</span><span class="quien"><b>Agus</b></span></li></ol></article><article class="podio-cat"><h3><small>Mejor</small>Show</h3><ol><li class="oro"><span class="medalla" aria-label="Oro">1</span><span class="quien"><b>Sweet Dreams</b><span>Crista</span></span></li><li class="plata"><span class="medalla" aria-label="Plata">2</span><span class="quien"><b>Fuego de noche</b><span>Nati, Ale, Salva y Martín</span></span></li><li class="bronce"><span class="medalla" aria-label="Bronce">3</span><span class="quien"><b>Total Eclipse of the Heart</b><span>Full band</span></span></li></ol></article><article class="podio-cat"><h3><small>Mejor</small>Personificación</h3><ol><li class="oro"><span class="medalla" aria-label="Oro">1</span><span class="quien"><b>Crista</b><span>Annie Lennox</span></span></li><li class="plata"><span class="medalla" aria-label="Plata">2</span><span class="quien"><b>Ale</b><span>Freddie Mercury</span></span></li><li class="bronce"><span class="medalla" aria-label="Bronce">3</span><span class="quien"><b>Maru</b><span>Madonna</span></span></li></ol></article><article class="podio-cat"><h3><small>Mejor</small>Dúo o grupo</h3><ol><li class="oro"><span class="medalla" aria-label="Oro">1</span><span class="quien"><b>Bachata rosa</b><span>Maru y Salva</span></span></li><li class="plata"><span class="medalla" aria-label="Plata">2</span><span class="quien"><b>Fuego de noche</b><span>Nati, Ale, Salva y Martín</span></span></li><li class="bronce"><span class="medalla" aria-label="Bronce">3</span><span class="quien"><b>Like a Prayer</b><span>Maru y Agus</span></span></li></ol></article><article class="podio-cat"><h3><small>Mejor</small>Coreografía</h3><ol><li class="oro"><span class="medalla" aria-label="Oro">1</span><span class="quien"><b>Like a Prayer</b><span>Maru y Agus</span></span></li><li class="plata"><span class="medalla" aria-label="Plata">2</span><span class="quien"><b>You Shook Me All Night Long</b><span>Ale y Salva</span></span></li><li class="bronce"><span class="medalla" aria-label="Bronce">3</span><span class="quien"><b>Sweet Dreams</b><span>Crista</span></span></li></ol></article></div>
 </section>
 <div class="divisor" aria-hidden="true"></div>
