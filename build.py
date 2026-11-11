@@ -7,13 +7,14 @@ sys.path.insert(0, HERE)
 import looks
 import temas
 import registro
+import resultados
 
 # El nombre de la fiesta vive solo aca: cambiarlo y volver a correr el script.
 TITULO = "Te canto las 40"
 
 # Votación (Google Forms). Pasar a True cuando se abre la votación, correr build.py y republicar.
 VOTACION_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfm4kTeIla4ivfnao4KStZRraC-1g7lKOuU_QkIVsyZbKxxtA/viewform"
-VOTACION_ABIERTA = True
+VOTACION_ABIERTA = False
 
 NIVELES = {1: "Con lo que tenés en casa", 2: "Comprando un par de cosas", 3: "Producción total"}
 REGIONES = {"int": "Internacionales", "arg": "Nacionales"}
@@ -139,6 +140,29 @@ noche_html = f"""<section id="noche" class="bloque bloque-noche" aria-labelledby
 </div></section>"""
 
 
+MEDALLAS = [("oro", "Oro"), ("plata", "Plata"), ("bronce", "Bronce")]
+
+
+def podio(cat, puestos):
+    filas = "".join(
+        f'<li class="{clase}"><span class="medalla" aria-label="{texto}">{i}</span>'
+        f'<span class="quien"><b>{e(nombre)}</b>{f"<span>{e(det)}</span>" if det else ""}</span></li>'
+        for i, ((clase, texto), (nombre, det)) in enumerate(zip(MEDALLAS, puestos), 1)
+    )
+    nombre_cat = cat.removeprefix("Mejor ")
+    return f'<article class="podio-cat"><h3><small>Mejor</small>{e(nombre_cat[0].upper() + nombre_cat[1:])}</h3><ol>{filas}</ol></article>'
+
+
+ganadores_html = f"""<section id="ganadores" class="bloque ganadores wrap" aria-labelledby="ganadores-tit">
+  <header class="bloque-top">
+    <p class="kicker">La votación</p>
+    <h2 id="ganadores-tit">El medallero.</h2>
+    <p>Votaron {resultados.VOTANTES} personas. Oro, plata y bronce en cada categoría.</p>
+  </header>
+  <div class="podios">{"".join(podio(c, p) for c, p in resultados.MEDALLERO)}</div>
+</section>"""
+
+
 def credito(c):
     enlace = c["page"] or c["url"]
     return f'<li><a href="{e(enlace)}">{e(c["name"])}</a></li>' if enlace else f'<li>{e(c["name"])}</li>'
@@ -179,7 +203,8 @@ page = f"""<!DOCTYPE html>
   --g: clamp(16px, 2vw, 28px);
 }}
 * {{ box-sizing: border-box; }}
-html {{ -webkit-text-size-adjust: 100%; background: var(--noche); }}
+html {{ -webkit-text-size-adjust: 100%; background: var(--noche); overflow-x: clip; }}
+body {{ overflow-x: clip; }}
 body {{ margin: 0; min-height: 100vh; display: flex; flex-direction: column; color: var(--blanco); font: 400 1rem/1.42 var(--sans);
   background: linear-gradient(180deg, #7f9295 0, #5f6e72 280px, #4c4e4d min(760px, 40%), #5a3a2c 58%, #642810 78%, var(--noche) 100%); }}
 a {{ color: inherit; }}
@@ -316,6 +341,29 @@ main {{ flex: 1 0 auto; }}
 .setlist b {{ font-weight: 800; font-size: 1rem; line-height: 1.2; }}
 .setlist span {{ font-size: .88rem; opacity: .82; }}
 
+.ganadores {{ scroll-margin-top: 20px; padding-top: clamp(40px, 5vw, 70px); }}
+.podios {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: clamp(14px, 1.8vw, 22px); }}
+.podio-cat {{ padding: clamp(18px, 2vw, 24px); border: 1px solid rgba(236, 210, 124, .45); border-radius: 18px; background: rgba(23, 14, 9, .28); }}
+.podio-cat h3 {{ margin: 0 0 14px; white-space: nowrap; font: 400 1.55rem/1.3 var(--script); -webkit-text-stroke: .01em var(--blanco); transform: rotate(-2.5deg); transform-origin: left center; }}
+.podio-cat h3 small {{ display: block; margin-bottom: 2px; font: 800 .72rem/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--oro-claro); -webkit-text-stroke: 0; }}
+.podio-cat ol {{ list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }}
+.podio-cat li {{ display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; }}
+.medalla {{ display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; font-weight: 800; font-size: .95rem; color: var(--noche);
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .18), 0 0 0 2px rgba(255, 255, 255, .25); }}
+.oro .medalla {{ width: 46px; height: 46px; font-size: 1.15rem; background: radial-gradient(circle at 35% 30%, #fff3c4, #ecd27c 45%, #b8913a); }}
+.plata .medalla {{ background: radial-gradient(circle at 35% 30%, #ffffff, #d4d9dc 45%, #8e979c); }}
+.bronce .medalla {{ background: radial-gradient(circle at 35% 30%, #f6d2b0, #cf8f5e 45%, #8c5230); }}
+.quien b {{ display: block; font-weight: 800; font-size: 1.02rem; line-height: 1.2; letter-spacing: -.01em; }}
+.oro .quien b {{ font-size: 1.3rem; color: var(--oro-claro); }}
+.quien span {{ display: block; font-size: .88rem; opacity: .82; }}
+@media (min-width: 1100px) {{
+  .podios {{ grid-template-columns: repeat(5, minmax(0, 1fr)); }}
+  .podio-cat {{ padding: 18px 16px; }}
+  .podio-cat h3 {{ font-size: 1.32rem; }}
+  .oro .quien b {{ font-size: 1.15rem; }}
+  .quien b {{ font-size: .95rem; }}
+}}
+
 .pie {{ position: relative; margin-top: clamp(52px, 7vw, 90px); font-size: .86rem; overflow: hidden; }}
 .pie .wrap {{ position: relative; z-index: 1; padding-bottom: clamp(70px, 9vw, 120px); }}
 .pie::after {{ content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: clamp(110px, 13vw, 170px); opacity: .5;
@@ -363,11 +411,13 @@ main {{ flex: 1 0 auto; }}
   <div class="wrap">
     <h1>{e(TITULO)}.</h1>
     <p class="dress">Y al final fueron {len(registro.NOCHE)}.</p>
-    <p class="bajada">La noche estuvo a la altura del dresscode: looks espectaculares, {len(registro.NOCHE)} temas cantados (le ganamos al título) y hasta una visita de la policía, que tampoco se la quiso perder. Ahora falta lo más importante: elegir a los ganadores.</p>
-    <div class="ctas">{votar_hero}</div>
+    <p class="bajada">La noche estuvo a la altura del dresscode: looks espectaculares, {len(registro.NOCHE)} temas cantados (le ganamos al título) y hasta una visita de la policía, que tampoco se la quiso perder. Y ya votaron: acá están los ganadores.</p>
+    <div class="ctas">{votar_hero}<a class="cta-votar" href="#ganadores"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Ver el medallero<svg class="st" aria-hidden="true"><use href="#estrella"/></svg></a></div>
   </div>
 </header>
 <main>
+{ganadores_html}
+<div class="divisor" aria-hidden="true"></div>
 {noche_html}
 <div class="divisor" aria-hidden="true"></div>
 <section id="looks" class="bloque" aria-labelledby="looks-tit">

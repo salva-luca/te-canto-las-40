@@ -21,7 +21,8 @@
   --g: clamp(16px, 2vw, 28px);
 }
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; background: var(--noche); }
+html { -webkit-text-size-adjust: 100%; background: var(--noche); overflow-x: clip; }
+body { overflow-x: clip; }
 body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; color: var(--blanco); font: 400 1rem/1.42 var(--sans);
   background: linear-gradient(180deg, #7f9295 0, #5f6e72 280px, #4c4e4d min(760px, 40%), #5a3a2c 58%, #642810 78%, var(--noche) 100%); }
 a { color: inherit; }
@@ -158,6 +159,29 @@ main { flex: 1 0 auto; }
 .setlist b { font-weight: 800; font-size: 1rem; line-height: 1.2; }
 .setlist span { font-size: .88rem; opacity: .82; }
 
+.ganadores { scroll-margin-top: 20px; padding-top: clamp(40px, 5vw, 70px); }
+.podios { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: clamp(14px, 1.8vw, 22px); }
+.podio-cat { padding: clamp(18px, 2vw, 24px); border: 1px solid rgba(236, 210, 124, .45); border-radius: 18px; background: rgba(23, 14, 9, .28); }
+.podio-cat h3 { margin: 0 0 14px; white-space: nowrap; font: 400 1.55rem/1.3 var(--script); -webkit-text-stroke: .01em var(--blanco); transform: rotate(-2.5deg); transform-origin: left center; }
+.podio-cat h3 small { display: block; margin-bottom: 2px; font: 800 .72rem/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--oro-claro); -webkit-text-stroke: 0; }
+.podio-cat ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.podio-cat li { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; }
+.medalla { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; font-weight: 800; font-size: .95rem; color: var(--noche);
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .18), 0 0 0 2px rgba(255, 255, 255, .25); }
+.oro .medalla { width: 46px; height: 46px; font-size: 1.15rem; background: radial-gradient(circle at 35% 30%, #fff3c4, #ecd27c 45%, #b8913a); }
+.plata .medalla { background: radial-gradient(circle at 35% 30%, #ffffff, #d4d9dc 45%, #8e979c); }
+.bronce .medalla { background: radial-gradient(circle at 35% 30%, #f6d2b0, #cf8f5e 45%, #8c5230); }
+.quien b { display: block; font-weight: 800; font-size: 1.02rem; line-height: 1.2; letter-spacing: -.01em; }
+.oro .quien b { font-size: 1.3rem; color: var(--oro-claro); }
+.quien span { display: block; font-size: .88rem; opacity: .82; }
+@media (min-width: 1100px) {
+  .podios { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .podio-cat { padding: 18px 16px; }
+  .podio-cat h3 { font-size: 1.32rem; }
+  .oro .quien b { font-size: 1.15rem; }
+  .quien b { font-size: .95rem; }
+}
+
 .pie { position: relative; margin-top: clamp(52px, 7vw, 90px); font-size: .86rem; overflow: hidden; }
 .pie .wrap { position: relative; z-index: 1; padding-bottom: clamp(70px, 9vw, 120px); }
 .pie::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: clamp(110px, 13vw, 170px); opacity: .5;
@@ -205,11 +229,20 @@ main { flex: 1 0 auto; }
   <div class="wrap">
     <h1>Te canto las 40.</h1>
     <p class="dress">Y al final fueron 41.</p>
-    <p class="bajada">La noche estuvo a la altura del dresscode: looks espectaculares, 41 temas cantados (le ganamos al título) y hasta una visita de la policía, que tampoco se la quiso perder. Ahora falta lo más importante: elegir a los ganadores.</p>
-    <div class="ctas"><a class="cta-votar" href="https://docs.google.com/forms/d/e/1FAIpQLSfm4kTeIla4ivfnao4KStZRraC-1g7lKOuU_QkIVsyZbKxxtA/viewform" target="_blank" rel="noopener"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Votá a los ganadores<svg class="st" aria-hidden="true"><use href="#estrella"/></svg></a></div>
+    <p class="bajada">La noche estuvo a la altura del dresscode: looks espectaculares, 41 temas cantados (le ganamos al título) y hasta una visita de la policía, que tampoco se la quiso perder. Y ya votaron: acá están los ganadores.</p>
+    <div class="ctas"><a class="cta-votar" href="#ganadores"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Ver el medallero<svg class="st" aria-hidden="true"><use href="#estrella"/></svg></a></div>
   </div>
 </header>
 <main>
+<section id="ganadores" class="bloque ganadores wrap" aria-labelledby="ganadores-tit">
+  <header class="bloque-top">
+    <p class="kicker">La votación</p>
+    <h2 id="ganadores-tit">El medallero.</h2>
+    <p>Votaron 23 personas. Oro, plata y bronce en cada categoría.</p>
+  </header>
+  <div class="podios"><article class="podio-cat"><h3><small>Mejor</small>Cantante</h3><ol><li class="oro"><span class="medalla" aria-label="Oro">1</span><span class="quien"><b>Ale</b><span>Freddie Mercury</span></span></li><li class="plata"><span class="medalla" aria-label="Plata">2</span><span class="quien"><b>Maru</b><span>Madonna</span></span></li><li class="bronce"><span class="medalla" aria-label="Bronce">3</span><span class="quien"><b>Agus</b></span></li></ol></article><article class="podio-cat"><h3><small>Mejor</small>Show</h3><ol><li class="oro"><span class="medalla" aria-label="Oro">1</span><span class="quien"><b>Sweet Dreams</b><span>Crista</span></span></li><li class="plata"><span class="medalla" aria-label="Plata">2</span><span class="quien"><b>Fuego de noche</b><span>Nati, Ale, Salva y Martín</span></span></li><li class="bronce"><span class="medalla" aria-label="Bronce">3</span><span class="quien"><b>Total Eclipse of the Heart</b><span>Full band</span></span></li></ol></article><article class="podio-cat"><h3><small>Mejor</small>Personificación</h3><ol><li class="oro"><span class="medalla" aria-label="Oro">1</span><span class="quien"><b>Crista</b><span>Annie Lennox</span></span></li><li class="plata"><span class="medalla" aria-label="Plata">2</span><span class="quien"><b>Ale</b><span>Freddie Mercury</span></span></li><li class="bronce"><span class="medalla" aria-label="Bronce">3</span><span class="quien"><b>Maru</b><span>Madonna</span></span></li></ol></article><article class="podio-cat"><h3><small>Mejor</small>Dúo o grupo</h3><ol><li class="oro"><span class="medalla" aria-label="Oro">1</span><span class="quien"><b>Bachata rosa</b><span>Maru y Salva</span></span></li><li class="plata"><span class="medalla" aria-label="Plata">2</span><span class="quien"><b>Fuego de noche</b><span>Nati, Ale, Salva y Martín</span></span></li><li class="bronce"><span class="medalla" aria-label="Bronce">3</span><span class="quien"><b>Like a Prayer</b><span>Maru y Agus</span></span></li></ol></article><article class="podio-cat"><h3><small>Mejor</small>Coreografía</h3><ol><li class="oro"><span class="medalla" aria-label="Oro">1</span><span class="quien"><b>Like a Prayer</b><span>Maru y Agus</span></span></li><li class="plata"><span class="medalla" aria-label="Plata">2</span><span class="quien"><b>You Shook Me All Night Long</b><span>Ale y Salva</span></span></li><li class="bronce"><span class="medalla" aria-label="Bronce">3</span><span class="quien"><b>Sweet Dreams</b><span>Crista</span></span></li></ol></article></div>
+</section>
+<div class="divisor" aria-hidden="true"></div>
 <section id="noche" class="bloque bloque-noche" aria-labelledby="noche-tit"><div class="wrap">
   <header class="bloque-top">
     <p class="kicker">La noche del 9 de noviembre</p>
@@ -230,7 +263,7 @@ main { flex: 1 0 auto; }
   <h2 id="looks-tit">Ideas de looks.</h2>
   <p>76 cantantes para armar el disfraz, del que se arma con lo que hay en casa a la producción total.</p>
 </header>
-<nav class="filtros" aria-label="Filtrar looks"><div class="wrap"><p class="f-tit">Filtrá los looks:</p><div class="opciones"><button type="button" class="f on" data-grupo="todos" aria-pressed="true">Todos</button><span class="grupo"><button type="button" class="f" data-grupo="region" data-v="int" aria-pressed="false">Internacionales</button><button type="button" class="f" data-grupo="region" data-v="arg" aria-pressed="false">Nacionales</button></span><span class="grupo"><button type="button" class="f" data-grupo="nivel" data-v="1" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</button><button type="button" class="f" data-grupo="nivel" data-v="2" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</button><button type="button" class="f" data-grupo="nivel" data-v="3" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Producción total</button></span></div><a class="ir-temas" href="#temas">¿Qué canto?</a><a class="ir-votar" href="https://docs.google.com/forms/d/e/1FAIpQLSfm4kTeIla4ivfnao4KStZRraC-1g7lKOuU_QkIVsyZbKxxtA/viewform" target="_blank" rel="noopener">Votá</a></div></nav>
+<nav class="filtros" aria-label="Filtrar looks"><div class="wrap"><p class="f-tit">Filtrá los looks:</p><div class="opciones"><button type="button" class="f on" data-grupo="todos" aria-pressed="true">Todos</button><span class="grupo"><button type="button" class="f" data-grupo="region" data-v="int" aria-pressed="false">Internacionales</button><button type="button" class="f" data-grupo="region" data-v="arg" aria-pressed="false">Nacionales</button></span><span class="grupo"><button type="button" class="f" data-grupo="nivel" data-v="1" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Con lo que tenés en casa</button><button type="button" class="f" data-grupo="nivel" data-v="2" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Comprando un par de cosas</button><button type="button" class="f" data-grupo="nivel" data-v="3" aria-pressed="false"><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg><svg class="st" aria-hidden="true"><use href="#estrella"/></svg>Producción total</button></span></div><a class="ir-temas" href="#temas">¿Qué canto?</a></div></nav>
 <p class="vacio wrap" hidden>No hay looks con esos filtros. Probá sacando alguno.</p>
 <section class="car wrap" data-region="int" aria-label="Internacionales">
   <header class="car-top">
