@@ -16,6 +16,10 @@ TITULO = "Te canto las 40"
 VOTACION_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfm4kTeIla4ivfnao4KStZRraC-1g7lKOuU_QkIVsyZbKxxtA/viewform"
 VOTACION_ABIERTA = False
 
+# Vista previa al compartir el link (WhatsApp, etc.). La imagen se genera con og.py.
+SITIO = "https://salva-luca.github.io/te-canto-las-40/"
+DESCRIPCION = "El medallero, el registro de la noche y las ideas de looks del cumple de Maru."
+
 NIVELES = {1: "Con lo que tenés en casa", 2: "Comprando un par de cosas", 3: "Producción total"}
 REGIONES = {"int": "Internacionales", "arg": "Nacionales"}
 e = html.escape
@@ -193,6 +197,18 @@ page = f"""<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(TITULO)}</title>
+<meta name="description" content="{e(DESCRIPCION)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{e(TITULO)}">
+<meta property="og:title" content="{e(TITULO)}. Y fueron 41.">
+<meta property="og:description" content="{e(DESCRIPCION)}">
+<meta property="og:url" content="{SITIO}">
+<meta property="og:image" content="{SITIO}og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Te canto las 40: la fiesta en pleno karaoke">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{SITIO}og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Pacifico&display=swap" rel="stylesheet">
